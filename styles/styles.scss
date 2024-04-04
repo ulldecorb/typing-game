@@ -1,0 +1,67 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+}
+
+:root {
+    color-scheme: light dark;
+    --brand-color: #9acd32;
+    --green: #11b755;
+    --yellow: #daaf38;
+    --red: #ca4754;
+    --black: #222;
+    --gray: #999;
+}
+
+body {
+    background-color: var(--black);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    h1 {
+        width: 100%;
+        color: var(--brand-color);
+        font-size: 3rem;
+        text-align: center;
+        padding: 10px;
+        border-bottom: 3px solid var(--brand-color);
+    }
+}
+
+main {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+
+    .game {
+        display: flex;
+        flex-direction: column;
+
+        time {
+            color: var(--gray);
+        }
+        
+        input {
+            // opacity: 0;
+            &::placeholder {
+                background-color: var(--red);
+                color: yellow;
+            }
+            
+        }
+        
+    }
+}
+
