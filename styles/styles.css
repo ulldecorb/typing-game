@@ -50,6 +50,31 @@ main .game {
 main .game time {
   color: var(--gray);
 }
+main .game p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 8px;
+}
+main .game p tg-letter {
+  color: var(--grey);
+  position: relative;
+}
+main .game p tg-letter.correct {
+  color: var(--green);
+}
+main .game p tg-letter.incorrect {
+  color: var(--red);
+}
+main .game p tg-letter.active::before {
+  content: "|";
+  color: var(--yellow);
+  position: absolute;
+  left: -7px;
+  animation: blink 1s ease-in-out infinite;
+}
+main .game p tg-letter.active.is-last::before {
+  left: 7px;
+}
 main .game input::-moz-placeholder {
   background-color: var(--red);
   color: yellow;
@@ -57,4 +82,13 @@ main .game input::-moz-placeholder {
 main .game input::placeholder {
   background-color: var(--red);
   color: yellow;
+}
+
+@keyframes blink {
+  0%, 25% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
 }/*# sourceMappingURL=styles.css.map */

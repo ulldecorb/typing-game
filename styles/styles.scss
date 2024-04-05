@@ -52,7 +52,38 @@ main {
         time {
             color: var(--gray);
         }
-        
+
+        p {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3px 8px;
+
+            tg-letter {
+                color: var(--grey);
+                position: relative;
+
+                &.correct {
+                    color: var(--green);
+                }
+
+                &.incorrect {
+                    color: var(--red);
+                }
+                
+                &.active::before {
+                    content: '|';
+                    color: var(--yellow);
+                    position: absolute;
+                    left: -7px;
+                    animation: blink 1s ease-in-out infinite ;
+                }
+
+                &.active.is-last::before {
+                    left: 7px;
+                }
+            }
+        }
+
         input {
             // opacity: 0;
             &::placeholder {
@@ -65,3 +96,8 @@ main {
     }
 }
 
+@keyframes blink {
+    0%, 25% {opacity: 0}
+    75% {opacity: 1}
+    
+}
