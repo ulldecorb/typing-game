@@ -105,15 +105,24 @@ function onKeyDown(event) {
             $prevWord.classList.remove('marked')
             $currentWord.classList.remove('active')
             $currentLetter.classList.remove('active')
+
+            let prevInput = []
+            let inputSearch = [...$prevWord
+                .querySelectorAll('.correct, .incorrect')]
+                .forEach(letter => {
+                    if (letter.classList.contains('correct')) prevInput.push(letter.textContent)
+                    if (letter.classList.contains('incorrect')) prevInput.push([...letter.style.cssText.split('')].reverse()[1])
+                 })
             
             const lastInput = [...$prevWord
                 .querySelectorAll('.correct, .incorrect')].map(letter => letter.textContent).join('')
 
             const indexToBack = $prevWord
                 .querySelectorAll('.correct, .incorrect').length
-            console.log({lastInput, indexToBack})
+            
+            console.log({prevInput, inputSearch, indexToBack})
 
-            $input.value = lastInput
+            $input.value = prevInput.join('')
                 
             $prevWord.classList.add('active')
             $prevWord.querySelectorAll('tg-letter')[indexToBack].classList.add('active')
@@ -146,15 +155,11 @@ function onKeyUp(event) {
         $letter.classList.add(letterClass)
 
         // TODO if (incorrect) => :before content = $letter.textContent 
-        if (isCorrect) {
+        if (!isCorrect && key.length === 1) {
             // $currentLetter.style.setProperty("--before-content", "'Nuevo contenido del pseudo-elemento ::before'");
-            $currentLetter.style.setProperty("--before-content", key);
+            console.log(key)
+            $currentLetter.style.setProperty('--after-content', key);
         }
-
-        // if (isCorrect) {
-
-        // }
-
     })
       
     $currentLetter.classList.remove('active', 'is-last')
@@ -169,5 +174,6 @@ function onKeyUp(event) {
 }
 
 function gameOver() {
+    // UI Render stats of game: Acuracy, wpm, svg graphics {wpm, errors, time/wpm}
     console.log('game over')
 }

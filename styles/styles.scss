@@ -64,14 +64,16 @@ main {
             gap: 3px 8px;
 
             tg-word {
-                border-bottom: 2px solid transparent;
+                border-bottom: 4px solid transparent;
+                transition: border-bottom .4s;
                 
-                &.incorrect {
-                    border-bottom: 2px solid var(--text-error);
+                &.marked {
+                    border-bottom: 4px solid var(--text-error);
                 }
             }
 
             tg-letter {
+                // --after-content: '';
                 color: var(--text);
                 position: relative;
 
@@ -96,7 +98,8 @@ main {
                 }
 
                 &::after {
-                    content: '';
+                    content: var(--after-content);
+                   // content: '*';
                     position: absolute;
                     top: -70%;
                     left: 0;

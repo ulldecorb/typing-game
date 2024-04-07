@@ -61,10 +61,11 @@ main .game__text {
   gap: 3px 8px;
 }
 main .game__text tg-word {
-  border-bottom: 2px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: border-bottom 0.4s;
 }
-main .game__text tg-word.incorrect {
-  border-bottom: 2px solid var(--text-error);
+main .game__text tg-word.marked {
+  border-bottom: 4px solid var(--text-error);
 }
 main .game__text tg-letter {
   color: var(--text);
@@ -87,7 +88,7 @@ main .game__text tg-letter.active.is-last::before {
   left: 7px;
 }
 main .game__text tg-letter::after {
-  content: "";
+  content: var(--after-content);
   position: absolute;
   top: -70%;
   left: 0;
