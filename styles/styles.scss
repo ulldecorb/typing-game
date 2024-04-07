@@ -11,13 +11,18 @@
     --brand-color: #9acd32;
     --green: #11b755;
     --yellow: #daaf38;
-    --red: #ca4754;
+    --red: #ca6547;
     --black: #222;
     --gray: #999;
+    --soft-dark: #323437;
+    --text: #646669;
+    --text-correct: var(--brand-color);
+    --text-error: var(--red);
+    --monkey-brand-color: #e2b714;
 }
 
 body {
-    background-color: var(--black);
+    background-color: var(--soft-dark);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,13 +34,13 @@ header {
     display: flex;
     justify-content: center;
 
-    h1 {
+    .title {
         width: 100%;
-        color: var(--brand-color);
+        color: var(--monkey-brand-color);
         font-size: 3rem;
         text-align: center;
         padding: 10px;
-        border-bottom: 3px solid var(--brand-color);
+        border-bottom: 3px solid var(--monkey-brand-color);
     }
 }
 
@@ -49,25 +54,35 @@ main {
         display: flex;
         flex-direction: column;
 
-        time {
+        &__time {
             color: var(--gray);
         }
 
-        p {
+        &__text {
             display: flex;
             flex-wrap: wrap;
             gap: 3px 8px;
 
+            tg-word {
+                border-bottom: 4px solid transparent;
+                transition: border-bottom .4s;
+                
+                &.marked {
+                    border-bottom: 4px solid var(--text-error);
+                }
+            }
+
             tg-letter {
-                color: var(--grey);
+                // --after-content: '';
+                color: var(--text);
                 position: relative;
 
                 &.correct {
-                    color: var(--green);
+                    color: var(--text-correct);
                 }
 
                 &.incorrect {
-                    color: var(--red);
+                    color: var(--text-error);
                 }
                 
                 &.active::before {
@@ -81,10 +96,21 @@ main {
                 &.active.is-last::before {
                     left: 7px;
                 }
+
+                &::after {
+                    content: var(--after-content);
+                   // content: '*';
+                    position: absolute;
+                    top: -70%;
+                    left: 0;
+                    
+                    color: var(--text-error);
+                }
             }
         }
 
-        input {
+        &__input {
+            margin: 10px 0;
             // opacity: 0;
             &::placeholder {
                 background-color: var(--red);
@@ -96,8 +122,33 @@ main {
     }
 }
 
+footer {
+    position: fixed;
+    bottom: 0;
+    color: var(--text);
+    text-align: center;
+
+    width: 100%;
+
+    .footer {
+        font-size: .8rem;
+        width: 100%;
+        padding-bottom: 5%;
+        
+        a {
+            font-size: .8rem;
+            text-decoration: none;
+            color: var(--text);
+            
+            &:hover {
+                color: var(--monkey-brand-color)
+            }
+        }
+    }
+}
+
 @keyframes blink {
-    0%, 25% {opacity: 0}
-    75% {opacity: 1}
+    0%, 25% {opacity: 1}
+    75% {opacity: 0}
     
 }
