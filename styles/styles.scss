@@ -119,6 +119,31 @@ main {
     }
 }
 
+footer {
+    position: fixed;
+    bottom: 0;
+    color: var(--text);
+    text-align: center;
+
+    width: 100%;
+
+    .footer {
+        font-size: .8rem;
+        width: 100%;
+        padding-bottom: 5%;
+        
+        a {
+            font-size: .8rem;
+            text-decoration: none;
+            color: var(--text);
+            
+            &:hover {
+                color: var(--monkey-brand-color)
+            }
+        }
+    }
+}
+
 @keyframes blink {
     0%, 25% {opacity: 1}
     75% {opacity: 0}

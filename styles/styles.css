@@ -105,6 +105,27 @@ main .game__input::placeholder {
   color: yellow;
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+  color: var(--text);
+  text-align: center;
+  width: 100%;
+}
+footer .footer {
+  font-size: 0.8rem;
+  width: 100%;
+  padding-bottom: 5%;
+}
+footer .footer a {
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: var(--text);
+}
+footer .footer a:hover {
+  color: var(--monkey-brand-color);
+}
+
 @keyframes blink {
   0%, 25% {
     opacity: 1;

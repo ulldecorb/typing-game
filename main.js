@@ -8,7 +8,8 @@ const INITIAL_TIME = 30
 const TEXT = 'A tinkling bell rang somewhere in the depths of the shop as they stepped inside. It was a tiny place, empty except for a single, spindly chair that Hagrid sat on to wait. Harry felt strangely as though he had entered a very strict library; he swallowed a lot of new questions that had just occurred to him and looked instead at the thousands of narrow boxes piled neatly right up to the ceiling. For some reason, the back of his neck prickled. The very dust and silence in here seemed to tingle with some secret magic.'
 
 
-const totalWords = TEXT.split(' ').length
+const objectiveWords = TEXT.split(' ').length
+let totalWords = 0
 
 let words = []
 let currentTime = INITIAL_TIME
@@ -19,7 +20,7 @@ initEvents()
 function initGame() {
     words = TEXT.split(' ')
     currentTime = INITIAL_TIME
-    $totalWords.textContent = totalWords
+    $totalWords.textContent = `${totalWords}/${objectiveWords}`
 
     $time.textContent = currentTime
 
