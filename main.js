@@ -1,10 +1,14 @@
 const $time = document.getElementById('time')
 const $text = document.getElementById('text')
 const $input = document.getElementById('type-handler')
+const $totalWords = document.getElementById('word-counter')
 
 const INITIAL_TIME = 30
 
-const TEXT = 'Erase una vez un cruzado de las ideas, un noble de las aventuras, de la vida y la naturaleza. Paseó por los años como brisa por el campo, sin rumbo ni preocupación alguna, amarrado a la inercia de sus pasos.'
+const TEXT = 'A tinkling bell rang somewhere in the depths of the shop as they stepped inside. It was a tiny place, empty except for a single, spindly chair that Hagrid sat on to wait. Harry felt strangely as though he had entered a very strict library; he swallowed a lot of new questions that had just occurred to him and looked instead at the thousands of narrow boxes piled neatly right up to the ceiling. For some reason, the back of his neck prickled. The very dust and silence in here seemed to tingle with some secret magic.'
+
+
+const totalWords = TEXT.split(' ').length
 
 let words = []
 let currentTime = INITIAL_TIME
@@ -15,6 +19,7 @@ initEvents()
 function initGame() {
     words = TEXT.split(' ')
     currentTime = INITIAL_TIME
+    $totalWords.textContent = totalWords
 
     $time.textContent = currentTime
 
@@ -55,8 +60,69 @@ function initEvents() {
     $input.addEventListener('keyup', onKeyUp)
 }
 
-function onKeyDown() {}
-function onKeyUp() {
+function onKeyDown(event) {
+    const $currentWord = document.querySelector('tg-word.active')
+    const $currentLetter = document.querySelector('tg-letter.active')
+    const $nextWord = $currentWord.nextElementSibling
+    const $nextLetter = $nextWord.querySelector('tg-letter')
+    const {key} = event
+
+    if (!$nextWord) gameOver()
+
+    if (key === ' ') {
+        event.preventDefault() 
+
+        $currentWord.classList.remove('active')
+        $currentLetter.classList.remove('active')
+
+        $nextWord.classList.add('active')
+        $nextLetter.classList.add('active')
+
+        $input.value = ''
+
+        const hasIncorrectLetters = $currentWord
+            .querySelectorAll('tg-letter:not(.correct)').length > 0
+
+        const classToAdd = hasIncorrectLetters ? 'marked' : 'correct'
+        $currentWord.classList.add(classToAdd)
+
+        return
+    }
+
+    if (key === 'Backspace') {
+        const $prevWord = $currentWord.previousElementSibling
+        const $prevLetter = $currentLetter.previousElementSibling  
+
+        if(!$prevWord && !$prevLetter) {
+            event.preventDefault()
+            return
+        }
+
+        const $markedWord = $text.querySelector('tg-word.marked')
+        if (!$prevLetter && $markedWord) {
+            event.preventDefault()
+            $prevWord.classList.remove('marked')
+            $currentWord.classList.remove('active')
+            $currentLetter.classList.remove('active')
+            
+            const lastInput = [...$prevWord
+                .querySelectorAll('.correct, .incorrect')].map(letter => letter.textContent).join('')
+
+            const indexToBack = $prevWord
+                .querySelectorAll('.correct, .incorrect').length
+            console.log({lastInput, indexToBack})
+
+            $input.value = lastInput
+                
+            $prevWord.classList.add('active')
+            $prevWord.querySelectorAll('tg-letter')[indexToBack].classList.add('active')
+
+        }
+    } 
+    
+}
+
+function onKeyUp(event) {
     const $currentWord = document.querySelector('tg-word.active')
     const $currentLetter = document.querySelector('tg-letter.active')
     
@@ -65,26 +131,40 @@ function onKeyUp() {
 
     
     const $allLetters = $currentWord.querySelectorAll('tg-letter')
+
     $allLetters.forEach(letter => letter.classList.remove('correct', 'incorrect'))
 
     $input.value.split('').forEach((letter, index) => {
         const $letter = $allLetters[index]
         const letterToCheck = currentWord[index]
+        const {key} = event
 
         const isCorrect = letter === letterToCheck
         const letterClass = isCorrect ? 'correct' : 'incorrect'
 
         $letter.classList.add(letterClass)
 
-        $currentLetter.classList.remove('active', 'is-last')
-        const inputLenght = $input.value.length
-        const $nextActiveLetter = $allLetters[inputLenght]
-        if ($nextActiveLetter) {
-            $nextActiveLetter.classList.add('active')
-        } else {
-            $currentLetter.classList.add('active', 'is-last')
+        // TODO if (incorrect) => :before content = $letter.textContent 
+        if (isCorrect) {
+            // $currentLetter.style.setProperty("--before-content", "'Nuevo contenido del pseudo-elemento ::before'");
+            $currentLetter.style.setProperty("--before-content", key);
         }
+
+        // if (isCorrect) {
+
+        // }
+
     })
+      
+    $currentLetter.classList.remove('active', 'is-last')
+    const inputLenght = $input.value.length
+    const $nextActiveLetter = $allLetters[inputLenght]
+
+    if ($nextActiveLetter) {
+        $nextActiveLetter.classList.add('active')
+    } else {
+        $currentLetter.classList.add('active', 'is-last')
+    }
 }
 
 function gameOver() {

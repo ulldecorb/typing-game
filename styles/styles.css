@@ -11,13 +11,18 @@
   --brand-color: #9acd32;
   --green: #11b755;
   --yellow: #daaf38;
-  --red: #ca4754;
+  --red: #ca6547;
   --black: #222;
   --gray: #999;
+  --soft-dark: #323437;
+  --text: #646669;
+  --text-correct: var(--brand-color);
+  --text-error: var(--red);
+  --monkey-brand-color: #e2b714;
 }
 
 body {
-  background-color: var(--black);
+  background-color: var(--soft-dark);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,13 +34,13 @@ header {
   display: flex;
   justify-content: center;
 }
-header h1 {
+header .title {
   width: 100%;
-  color: var(--brand-color);
+  color: var(--monkey-brand-color);
   font-size: 3rem;
   text-align: center;
   padding: 10px;
-  border-bottom: 3px solid var(--brand-color);
+  border-bottom: 3px solid var(--monkey-brand-color);
 }
 
 main {
@@ -47,48 +52,64 @@ main .game {
   display: flex;
   flex-direction: column;
 }
-main .game time {
+main .game__time {
   color: var(--gray);
 }
-main .game p {
+main .game__text {
   display: flex;
   flex-wrap: wrap;
   gap: 3px 8px;
 }
-main .game p tg-letter {
-  color: var(--grey);
+main .game__text tg-word {
+  border-bottom: 2px solid transparent;
+}
+main .game__text tg-word.incorrect {
+  border-bottom: 2px solid var(--text-error);
+}
+main .game__text tg-letter {
+  color: var(--text);
   position: relative;
 }
-main .game p tg-letter.correct {
-  color: var(--green);
+main .game__text tg-letter.correct {
+  color: var(--text-correct);
 }
-main .game p tg-letter.incorrect {
-  color: var(--red);
+main .game__text tg-letter.incorrect {
+  color: var(--text-error);
 }
-main .game p tg-letter.active::before {
+main .game__text tg-letter.active::before {
   content: "|";
   color: var(--yellow);
   position: absolute;
   left: -7px;
   animation: blink 1s ease-in-out infinite;
 }
-main .game p tg-letter.active.is-last::before {
+main .game__text tg-letter.active.is-last::before {
   left: 7px;
 }
-main .game input::-moz-placeholder {
+main .game__text tg-letter::after {
+  content: "";
+  position: absolute;
+  top: -70%;
+  left: 0;
+  color: var(--text-error);
+}
+main .game__input {
+  margin: 10px 0;
+}
+main .game__input::-moz-placeholder {
   background-color: var(--red);
   color: yellow;
 }
-main .game input::placeholder {
+main .game__input::placeholder {
   background-color: var(--red);
   color: yellow;
 }
 
 @keyframes blink {
   0%, 25% {
-    opacity: 0;
+    opacity: 1;
   }
   75% {
-    opacity: 1;
+    opacity: 0;
   }
 }/*# sourceMappingURL=styles.css.map */

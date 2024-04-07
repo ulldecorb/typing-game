@@ -12,20 +12,23 @@
 </head>
 <body>
     <header>
-        <h1>Typing Game</h1>
+        <h1 class="title">Typing Game</h1>
         <!-- Game options -->
         <!-- <aside>
         </aside> -->
     </header>
     <main>
         <section class="game">
-            <input 
+            <time class="game__time" id="time"></time>
+            <p class="game__word-counter" id="word-counter"></p>
+            <p class="game__text" id="text"></p>
+            <input
+            class="game__input"
             id="type-handler"
+            autocomplete="off"
             autofocus
             type="text"
             >
-            <time id="time">30</time>
-            <p id="text"></p>
         </section>
     </main>
 
