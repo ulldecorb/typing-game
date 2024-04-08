@@ -5,17 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typing game</title>
     <link rel="stylesheet" href="./styles/styles.css">
-    <script src="main.js" defer></script>
-    <script type="module">
-        import { Text } from './Text.js';
-    </script>
+    <script type="module" src="main.js" defer></script>
 </head>
 <body>
     <header>
         <h1 class="title">Typing Game</h1>
-        <!-- Game options -->
-        <!-- <aside>
-        </aside> -->
     </header>
     <main>
         <section class="game">
@@ -30,11 +24,19 @@
             type="text"
             >
         </section>
+        <section class="info">
+            <article class="acuracy">
+                <h2>Acuracy</h2>
+                <h3 id="acuracy"></h3>
+            </article>
+            <article class="wpm">
+                <h2>WPM</h2>
+                <h3 id="wpm"></h3>
+            </article>
+        </section>
     </main>
     <footer>
-        <p class="footer">Made with 💖 by <a href="https://github.com/ulldecorb">Ulldecorb</a></p>
-    </footer>
-
-    
+        <p class="footer">Made with 💖 by <a href="https://github.com/ulldecorb" target="_blank">Ulldecorb</a></p>
+    </footer>    
 </body>
 </html>
