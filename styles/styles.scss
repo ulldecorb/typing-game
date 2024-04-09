@@ -33,6 +33,7 @@ header {
     width: 100%;
     display: flex;
     justify-content: center;
+    z-index: 3;
 
     .title {
         width: 100%;
@@ -40,7 +41,7 @@ header {
         font-size: 3rem;
         text-align: center;
         padding: 10px;
-        border-bottom: 3px solid var(--monkey-brand-color);
+        border-bottom: 3px solid var(--text);
     }
 }
 
@@ -58,6 +59,10 @@ main {
             color: var(--gray);
         }
 
+        &__word-counter {
+            color: var(--gray)
+        }
+
         &__text {
             display: flex;
             flex-wrap: wrap;
@@ -73,7 +78,7 @@ main {
             }
 
             tg-letter {
-                // --after-content: '';
+                --after-content: '';
                 color: var(--text);
                 position: relative;
 
@@ -103,7 +108,6 @@ main {
                     position: absolute;
                     top: -70%;
                     left: 0;
-                    
                     color: var(--text-error);
                 }
             }
@@ -120,6 +124,49 @@ main {
         }
         
     }
+
+    .info {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 2;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--soft-dark);
+
+        article {
+            width: 20vw;
+            height: 20vw;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            border: 4px solid var(--text);
+            text-align: center;
+            display: grid;
+            grid-template-rows: 1fr 2fr;
+
+
+            h2 {
+                width: 100%;
+                text-align: center;
+                color: var(--monkey-brand-color)
+            }
+
+            h3 {
+                color: var(--text);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .reset {
+            color: var(--monkey-brand-color)
+        }
+    }
 }
 
 footer {
@@ -127,8 +174,9 @@ footer {
     bottom: 0;
     color: var(--text);
     text-align: center;
-
     width: 100%;
+    z-index: 3;
+
 
     .footer {
         font-size: .8rem;
