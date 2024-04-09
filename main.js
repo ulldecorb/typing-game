@@ -7,7 +7,8 @@ const $totalWords = document.getElementById('word-counter')
 const $info = document.querySelector('.info')
 const $acuracy = document.querySelector('#acuracy')
 const $wpm = document.querySelector('#wpm')
-const INITIAL_TIME = 10
+const $closeInfo = document.querySelector('#closeInfoHandler')
+const INITIAL_TIME = 1
 
 const TEXT = harryPotter[21]
 
@@ -60,6 +61,7 @@ function initEvents() {
         $input.focus()
     })
 
+    $closeInfo.addEventListener('click', closeInfo)
     $input.addEventListener('keydown', onKeyDown)
     $input.addEventListener('keyup', onKeyUp)
 }
@@ -183,7 +185,8 @@ function gameOver() {
     const wpm = Math.floor( totalWords / INITIAL_TIME * 60)
     const errors = document.querySelectorAll('tg-letter.incorrect').length
     const totalLetters = document.querySelectorAll('.correct, .incorrect').length
-    const acuracy = Math.floor(100 - (errors * 100 / totalLetters)) 
+    let acuracy = Math.floor(100 - (errors * 100 / totalLetters)) 
+    if (isNaN(acuracy)) {acuracy = 0} 
 
     // errors         totalLetters   
     // 1              100  
@@ -192,4 +195,13 @@ function gameOver() {
     $acuracy.textContent = `${acuracy}%`
     $wpm.textContent = wpm
 
+    $input.value = ''
+    $text.innerHTML = ''
+
+    initGame()
+
+}
+
+function closeInfo() {
+    $info.style.display = 'none'
 }

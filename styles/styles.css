@@ -144,6 +144,9 @@ main .info article h3 {
   justify-content: center;
   align-items: center;
 }
+main .info .reset {
+  color: var(--monkey-brand-color);
+}
 
 footer {
   position: fixed;
