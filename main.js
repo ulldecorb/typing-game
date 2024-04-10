@@ -18,6 +18,7 @@ let totalWords = 0
 
 let words = []
 let currentTime = INITIAL_TIME
+let playing = false
 
 initGame()
 initEvents()
@@ -45,15 +46,15 @@ function initGame() {
     $firstWord.classList.add('active')
     $firstWord.querySelector('tg-letter').classList.add('active')
 
-    const intervalId = setInterval(() => {
-        currentTime--
-        $time.textContent = currentTime
+    // const intervalId = setInterval(() => {
+    //     currentTime--
+    //     $time.textContent = currentTime
     
-        if (currentTime <= 0) {
-            clearInterval(intervalId)
-            gameOver()
-        }
-    }, 1000)
+    //     if (currentTime <= 0) {
+    //         clearInterval(intervalId)
+    //         gameOver()
+    //     }
+    // }, 1000)
     
 }
 
@@ -67,6 +68,19 @@ function initEvents() {
 
 function focusInput() {
     $input.focus()
+    if(!playing) {
+        playing = true
+        
+    const intervalId = setInterval(() => {
+        currentTime--
+        $time.textContent = currentTime
+    
+        if (currentTime <= 0) {
+            clearInterval(intervalId)
+            gameOver()
+        }
+    }, 1000)
+    }
 }
 
 function closeInfo() {
@@ -177,7 +191,7 @@ function onKeyUp(event) {
 
         $letter.classList.add(letterClass)
 
-        // TODO if (incorrect) => :after content = $letter.textContent 
+        // TODO =>  if (incorrect) => $letter.textContent = :after content   
         if (!isCorrect && key.length === 1) {
             $currentLetter.style.setProperty('--after-content', key);
         }
@@ -195,9 +209,9 @@ function onKeyUp(event) {
 }
 
 function gameOver() {
-    // UI Render stats of game: Accuracy, wpm, svg graphics {wpm, errors, time/wpm}
+    // TODO => UI Render stats of game: Accuracy, wpm, svg graphics {wpm, errors, time/wpm}
     console.log('game over')
-
+    playing = false
     currentTime = 0
     
     $input.removeEventListener('keydown', onKeyDown)
@@ -205,23 +219,16 @@ function gameOver() {
     document.removeEventListener('keydown', focusInput)
     const wpm = Math.floor( totalWords / INITIAL_TIME * 60)
     const errors = document.querySelectorAll('tg-letter.incorrect').length
-    // const totalLetters = document.querySelectorAll('.correct, .incorrect').length
     const totalLetters = document.querySelectorAll('.correct, .incorrect').length
-    let accuracy = Math.floor(100 - (errors * 100 / totalLetters)) 
+    let accuracy = (100 - (errors * 100 / totalLetters)) 
     if (isNaN(accuracy)) {accuracy = 0} 
 
     $info.style.display = 'flex'
-    $accuracy.textContent = `${accuracy}%`
-    // $wpm.textContent = wpm
+    $accuracy.textContent = `${accuracy.toFixed(2)}%`
     $wpm.textContent = wpm
     $accuracy.classList.add('correct')
     $wpm.classList.add('correct')
 
-    // $input.value = ''
     $input.value = ''
     $text.innerHTML = ''
-
-    // initGame()
-    // initGame()
-
 }
