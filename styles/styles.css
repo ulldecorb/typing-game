@@ -77,10 +77,11 @@ main .game__text tg-letter {
   position: relative;
 }
 main .game__text tg-letter.correct {
-  color: var(--text-correct);
+  animation: letter-fade-color 2s linear infinite;
 }
 main .game__text tg-letter.incorrect {
   color: var(--text-error);
+  color: #000;
 }
 main .game__text tg-letter.active::before {
   content: "|";
@@ -144,8 +145,21 @@ main .info article h3 {
   justify-content: center;
   align-items: center;
 }
+main .info article .stats {
+  animation: letter-fade-color 2s linear infinite;
+}
 main .info .reset {
   color: var(--monkey-brand-color);
+  padding: 10px;
+  border-radius: 10px;
+  opacity: 0.4;
+  cursor: pointer;
+}
+main .info .reset:hover {
+  scale: 120%;
+  color: var(--soft-dark);
+  background-color: var(--monkey-brand-color);
+  opacity: 1;
 }
 
 footer {
@@ -159,7 +173,7 @@ footer {
 footer .footer {
   font-size: 0.8rem;
   width: 100%;
-  padding-bottom: 5%;
+  padding-bottom: 10px;
 }
 footer .footer a {
   font-size: 0.8rem;
@@ -176,5 +190,13 @@ footer .footer a:hover {
   }
   75% {
     opacity: 0;
+  }
+}
+@keyframes letter-fade-color {
+  0% {
+    color: red;
+  }
+  50%, 100% {
+    color: blueviolet;
   }
 }/*# sourceMappingURL=styles.css.map */
