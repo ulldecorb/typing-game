@@ -83,11 +83,13 @@ main {
                 position: relative;
 
                 &.correct {
-                    color: var(--text-correct);
+                    // color: var(--text-correct);
+                    animation: letter-fade-color 2s linear infinite;
                 }
 
                 &.incorrect {
                     color: var(--text-error);
+                    color: #000;
                 }
                 
                 &.active::before {
@@ -161,6 +163,10 @@ main {
                 justify-content: center;
                 align-items: center;
             }
+
+            .stats {
+                animation: letter-fade-color 2s linear infinite;
+            }
         }
 
         .reset {
@@ -181,7 +187,7 @@ footer {
     .footer {
         font-size: .8rem;
         width: 100%;
-        padding-bottom: 5%;
+        padding-bottom: 10px;
         
         a {
             font-size: .8rem;
@@ -200,3 +206,8 @@ footer {
     75% {opacity: 0}
     
 }
+
+@keyframes letter-fade-color {
+    0% {color: red}
+    50% {color: blueviolet}
+}           
