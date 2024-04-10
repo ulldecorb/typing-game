@@ -49,7 +49,7 @@ function initGame() {
         currentTime--
         $time.textContent = currentTime
     
-        if (currentTime === 0) {
+        if (currentTime <= 0) {
             clearInterval(intervalId)
             gameOver()
         }
@@ -58,13 +58,23 @@ function initGame() {
 }
 
 function initEvents() {
-    document.addEventListener('keydown', () => {
-        $input.focus()
-    })
+    document.addEventListener('keydown', focusInput)
 
     $closeInfo.addEventListener('click', closeInfo)
     $input.addEventListener('keydown', onKeyDown)
     $input.addEventListener('keyup', onKeyUp)
+}
+
+function focusInput() {
+    $input.focus()
+}
+
+function closeInfo() {
+    $info.style.display = 'none'
+    $accuracy.textContent = ''
+    $wpm.textContent = ''
+    initGame()
+    initEvents()
 }
 
 function onKeyDown(event) {
@@ -188,6 +198,11 @@ function gameOver() {
     // UI Render stats of game: Accuracy, wpm, svg graphics {wpm, errors, time/wpm}
     console.log('game over')
 
+    currentTime = 0
+    
+    $input.removeEventListener('keydown', onKeyDown)
+    $input.removeEventListener('keyup', onKeyUp)
+    document.removeEventListener('keydown', focusInput)
     const wpm = Math.floor( totalWords / INITIAL_TIME * 60)
     const errors = document.querySelectorAll('tg-letter.incorrect').length
     // const totalLetters = document.querySelectorAll('.correct, .incorrect').length
@@ -207,10 +222,6 @@ function gameOver() {
     $text.innerHTML = ''
 
     // initGame()
-    initGame()
+    // initGame()
 
-}
-
-function closeInfo() {
-    $info.style.display = 'none'
 }

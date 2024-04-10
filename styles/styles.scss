@@ -170,7 +170,18 @@ main {
         }
 
         .reset {
-            color: var(--monkey-brand-color)
+            color: var(--monkey-brand-color);
+            padding: 10px;
+            border-radius: 10px;
+            opacity: .4;
+            cursor: pointer;
+
+            &:hover {
+                scale: 120%;
+                color: var(--soft-dark);
+                background-color: var(--monkey-brand-color);
+                opacity: 1;
+            }
         }
     }
 }
@@ -208,6 +219,6 @@ footer {
 }
 
 @keyframes letter-fade-color {
-    0% {color: red}
-    50% {color: blueviolet}
+    0%{color: red}
+    50%, 100%{color: blueviolet}
 }           
