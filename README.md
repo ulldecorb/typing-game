@@ -13,19 +13,29 @@ Simple web page to improve type skills created with HTML, CSS and Javascript.
 
 ## Scope of functionalities
 
-<!-- Diagrames llogics
-Test -->
-
-
 🟩 Type response 
 🟩 Space response 
-⬛ Backspace response
+🟩 Backspace response
 🟩 Info wpm
 🟩 Info acuracy
-⬛ SVG stats graphic
-⬛ header options bar
+
+<!--    
+        Logics Diagrames
+        Test for component refactor
+-->
 
 ## Project status
+
+⬛ SVG stats graphic
+⬛ header options bar
+⬛ 🐞 Word counter increase when space
+⬛ Space logic => if ($totalLettersCorrectOrIncorrectInCurrentWord.length < 1) no jump to $nextWord
+⬛ bar > toggle typing source (numbers/punctuation)
+⬛ bar > toggle typing modes (time/words/paragraph/zen)
+⬛ UI > SVG icons for bar
+⬛ bar > toggle time selector
+⬛ reset button => little icon down the text
+⬛ :after render .incorrectLetters
 
 ## Sources
 This project is based on [this video of Midudev](https://www.youtube.com/watch?v=157qVlTelOg&t=118s), a fast clone of [monkeytype](https://monkeytype.com/). 
