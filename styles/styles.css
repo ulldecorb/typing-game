@@ -102,6 +102,7 @@ main .game__text tg-letter::after {
 }
 main .game__input {
   margin: 10px 0;
+  opacity: 0;
 }
 main .game__input::-moz-placeholder {
   background-color: var(--red);
@@ -119,9 +120,11 @@ main .info {
   width: 100%;
   z-index: 2;
   display: none;
+  grid-template-areas: "wpm accuracy" "reset reset";
+  align-content: center;
   justify-content: center;
-  align-items: center;
   background-color: var(--soft-dark);
+  padding: 5vmax;
 }
 main .info article {
   width: 20vw;
@@ -145,14 +148,24 @@ main .info article h3 {
   justify-content: center;
   align-items: center;
 }
+main .info article .wpm {
+  grid-area: wpm;
+}
+main .info article .accuracy {
+  grid-area: accuracy;
+}
 main .info article .stats {
   animation: letter-fade-color 2s linear infinite;
 }
 main .info .reset {
+  grid-area: reset;
   color: var(--monkey-brand-color);
   padding: 10px;
+  margin: 10px;
+  margin-top: 30px;
   border-radius: 10px;
   opacity: 0.4;
+  transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
 main .info .reset:hover {
@@ -194,7 +207,7 @@ footer .footer a:hover {
 }
 @keyframes letter-fade-color {
   0% {
-    color: red;
+    color: var(--brand-color);
   }
   50%, 100% {
     color: blueviolet;

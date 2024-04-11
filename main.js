@@ -8,13 +8,13 @@ const $info = document.querySelector('.info')
 const $accuracy = document.querySelector('#accuracy')
 const $wpm = document.querySelector('#wpm')
 const $closeInfo = document.querySelector('#closeInfoHandler')
-const INITIAL_TIME = 3
+const INITIAL_TIME = 60
 
 // const TEXT = harryPotter[21]
-const TEXT = englishLetters.toSorted(() => Math.random() - .5).slice(0, 50)
-
-const objectiveWords = TEXT.length
+const objectiveWords = 30
 let totalWords = 0
+const TEXT = getText(englishLetters)
+
 
 let words = []
 let currentTime = INITIAL_TIME
@@ -23,8 +23,12 @@ let playing = false
 initGame()
 initEvents()
 
+function getText (stringArray) {
+    return stringArray.toSorted(() => Math.random() - .5).slice(0, objectiveWords)
+}
+
 function initGame() {
-    words = TEXT
+    words = getText(TEXT)
     currentTime = INITIAL_TIME  
     $totalWords.textContent = `${totalWords}/${objectiveWords}`
 
@@ -94,14 +98,15 @@ function closeInfo() {
 function onKeyDown(event) {
     const $currentWord = document.querySelector('tg-word.active')
     const $currentLetter = document.querySelector('tg-letter.active')
-    const $nextWord = $currentWord.nextElementSibling
-    const $nextLetter = $nextWord.querySelector('tg-letter')
     const {key} = event
-
-    if (!$nextWord) gameOver()
-
+    
+    
     if (key === ' ') {
         event.preventDefault() 
+
+        const $nextWord = $currentWord.nextElementSibling
+        if (!$nextWord ) gameOver()
+        const $nextLetter = $nextWord.querySelector('tg-letter')            
 
         $currentWord.classList.remove('active')
         $currentLetter.classList.remove('active')
@@ -138,8 +143,14 @@ function onKeyDown(event) {
         if (!$prevLetter && $markedWord) {
             event.preventDefault()
             $prevWord.classList.remove('marked')
-            $currentWord.classList.remove('active')
-            // $currentLetter.classList.remove('active')
+            $prevWord.classList.add('active')
+            const $letterToBack = $prevWord
+                .querySelector('tg-letter:last-child')
+
+            // $currentWord.classList.remove('active')
+            $currentLetter.classList.remove('active')
+            $letterToBack.classList.add('active')
+
             // $prevWord.classList.add('active')
 
             let prevInput = [...$prevWord
@@ -153,24 +164,22 @@ function onKeyDown(event) {
             // const lastInput = [...$prevWord
                 // .querySelectorAll('.correct, .incorrect')].map(letter => letter.textContent).join('')
 
-            // const indexToBack = $prevWord
+            // const $letterToBack = $prevWord
             //     .querySelectorAll('.correct, .incorrect').length
-            const indexToBack = $prevWord
-                .querySelectorAll('.correct, .incorrect')
             
-                console.log({prevInput, indexToBack, $prevWord, $currentLetter})
-
+                
             $input.value = prevInput
             // $input.value = inputSearch
-                
-            $prevWord.classList.add('active')
-            indexToBack[indexToBack.length - 1].classList.add('active')
+            
+            console.log({prevInput, $letterToBack, $prevWord, $currentLetter})
+            // $prevWord.classList.add('active')
         }
     } 
+
+    // if (!$nextLetter && !$nextWord) gameOver()
 }
 
 function onKeyUp(event) {
-    // select current active elements
     const $currentWord = document.querySelector('tg-word.active')
     const $currentLetter = document.querySelector('tg-letter.active')
     
@@ -223,12 +232,14 @@ function gameOver() {
     let accuracy = (100 - (errors * 100 / totalLetters)) 
     if (isNaN(accuracy)) {accuracy = 0} 
 
-    $info.style.display = 'flex'
+    $info.style.display = 'grid'
     $accuracy.textContent = `${accuracy.toFixed(2)}%`
     $wpm.textContent = wpm
     $accuracy.classList.add('correct')
     $wpm.classList.add('correct')
 
+    totalWords = 0
     $input.value = ''
     $text.innerHTML = ''
+    $totalWords.innerText = `0/${objectiveWords}`
 }
