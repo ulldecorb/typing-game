@@ -117,7 +117,7 @@ main {
 
         &__input {
             margin: 10px 0;
-            // opacity: 0;
+            opacity: 0;
             &::placeholder {
                 background-color: var(--red);
                 color: yellow;
@@ -135,9 +135,14 @@ main {
         width: 100%;
         z-index: 2;
         display: none;
+        grid-template-areas: 
+            "wpm accuracy"
+            "reset reset"
+        ;
+        align-content: center;
         justify-content: center;
-        align-items: center;
         background-color: var(--soft-dark);
+        padding: 5vmax;
 
         article {
             width: 20vw;
@@ -148,8 +153,7 @@ main {
             border: 4px solid var(--text);
             text-align: center;
             display: grid;
-            grid-template-rows: 1fr 2fr;
-
+            grid-template-rows: 1fr 2fr;            ;
 
             h2 {
                 width: 100%;
@@ -164,16 +168,28 @@ main {
                 align-items: center;
             }
 
+            .wpm {
+                grid-area: wpm;
+            }
+
+            .accuracy {
+                grid-area: accuracy;
+            }
+
             .stats {
                 animation: letter-fade-color 2s linear infinite;
             }
         }
 
         .reset {
+            grid-area: reset;
             color: var(--monkey-brand-color);
             padding: 10px;
+            margin: 10px;
+            margin-top: 30px;
             border-radius: 10px;
             opacity: .4;
+            transition: all .3s ease-in-out;
             cursor: pointer;
 
             &:hover {
@@ -219,6 +235,6 @@ footer {
 }
 
 @keyframes letter-fade-color {
-    0%{color: red}
+    0%{color: var(--brand-color)}
     50%, 100%{color: blueviolet}
 }           
