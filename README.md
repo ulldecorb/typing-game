@@ -13,11 +13,6 @@ Simple web page to improve type skills created with HTML, CSS and Javascript.
 
 ## Scope of functionalities
 
-🟩 Type response 
-🟩 Space response 
-🟩 Backspace response
-🟩 Info wpm
-🟩 Info acuracy
 
 <!--    
         Logics Diagrames
@@ -25,7 +20,19 @@ Simple web page to improve type skills created with HTML, CSS and Javascript.
 -->
 
 ## Project status
+First do it.   
+Second do it right.   
+Then do it better.   
+There are 3 stages on this project:
+### 1. Develop basic game
+🟩 Type response 
+🟩 Space response 
+🟩 Backspace response
+🟩 Info wpm
+🟩 Info acuracy
 
+### 2. Develop custom features and refactor style
+>>> 🛠 On Progres...
 ⬛ SVG stats graphic
 ⬛ header options bar
 ⬛ 🐞 Word counter increase when space
@@ -36,10 +43,17 @@ Simple web page to improve type skills created with HTML, CSS and Javascript.
 ⬛ bar > toggle time selector
 ⬛ reset button => little icon down the text
 ⬛ :after render .incorrectLetters
+### 3. Set e2e and unit tests to refactor javascript
+⬛ Unit tests
+⬛ E2E tests
+⬛ Modularize functions
 
 ## Sources
-This project is based on [this video of Midudev](https://www.youtube.com/watch?v=157qVlTelOg&t=118s), a fast clone of [monkeytype](https://monkeytype.com/). 
-Improving the UX and UI with custom sets of colors, svg generator to render the game info at game over and render the wrong type letter.
+This project is based on [this video of Midudev](https://www.youtube.com/watch?v=157qVlTelOg&t=118s), a fast clone of [Monkeytype](https://monkeytype.com/). 
+Improving the UX and UI with custom sets of colors, svg generator to render the game info stats when game is over and render the wrong type letter. I also get some functionalities from [Agile Fingers](https://agilefingers.com/es) another type web.
+The objectives of develop this web are fun and the opportunity to aply tools and functionalities that I was deserve to touch:
+SVG stats graphic generator
+
 
 ## Jest
 1. Iniciar el projecte:   

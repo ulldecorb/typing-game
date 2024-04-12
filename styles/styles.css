@@ -32,8 +32,11 @@ body {
 header {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   z-index: 3;
+  border-bottom: 3px solid var(--text);
 }
 header .title {
   width: 100%;
@@ -42,6 +45,42 @@ header .title {
   text-align: center;
   padding: 10px;
   border-bottom: 3px solid var(--text);
+}
+header .options {
+  width: 80vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 16px;
+  margin: 10px;
+  background-color: var(--black);
+}
+header .options__option {
+  display: flex;
+  text-decoration: none;
+  list-style: none;
+}
+header .options__option button {
+  display: flex;
+  align-items: center;
+  border: none;
+  padding: auto 10px;
+  background-color: var(--black);
+  cursor: pointer;
+}
+header .options__option button svg {
+  scale: 150%;
+  padding-right: 10px;
+  stroke: var(--text);
+}
+header .options__option button h2 {
+  color: var(--text);
+}
+header .options__option button:hover h2 {
+  color: var(--monkey-brand-color);
+}
+header .options__option button:hover svg {
+  stroke: var(--monkey-brand-color);
 }
 
 main {
@@ -77,7 +116,7 @@ main .game__text tg-letter {
   position: relative;
 }
 main .game__text tg-letter.correct {
-  animation: letter-fade-color 2s linear infinite;
+  animation: letter-fade-color 4s linear infinite;
 }
 main .game__text tg-letter.incorrect {
   color: var(--text-error);
@@ -101,16 +140,8 @@ main .game__text tg-letter::after {
   color: var(--text-error);
 }
 main .game__input {
-  margin: 10px 0;
+  position: absolute;
   opacity: 0;
-}
-main .game__input::-moz-placeholder {
-  background-color: var(--red);
-  color: yellow;
-}
-main .game__input::placeholder {
-  background-color: var(--red);
-  color: yellow;
 }
 main .info {
   position: absolute;
@@ -143,6 +174,7 @@ main .info article h2 {
   color: var(--monkey-brand-color);
 }
 main .info article h3 {
+  font-size: 2rem;
   color: var(--text);
   display: flex;
   justify-content: center;
@@ -155,7 +187,7 @@ main .info article .accuracy {
   grid-area: accuracy;
 }
 main .info article .stats {
-  animation: letter-fade-color 2s linear infinite;
+  animation: letter-fade-color 4s linear infinite;
 }
 main .info .reset {
   grid-area: reset;
@@ -169,10 +201,11 @@ main .info .reset {
   cursor: pointer;
 }
 main .info .reset:hover {
-  scale: 120%;
-  color: var(--soft-dark);
   background-color: var(--monkey-brand-color);
   opacity: 1;
+}
+main .info .reset:hover img {
+  scale: 150%;
 }
 
 footer {
@@ -207,9 +240,9 @@ footer .footer a:hover {
 }
 @keyframes letter-fade-color {
   0% {
-    color: var(--brand-color);
+    color: rgb(255, 230, 0);
   }
-  50%, 100% {
-    color: blueviolet;
+  10%, 100% {
+    color: rgb(255, 106, 0);
   }
 }/*# sourceMappingURL=styles.css.map */

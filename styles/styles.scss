@@ -32,8 +32,11 @@ body {
 header {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     z-index: 3;
+    border-bottom: 3px solid var(--text);
 
     .title {
         width: 100%;
@@ -42,6 +45,49 @@ header {
         text-align: center;
         padding: 10px;
         border-bottom: 3px solid var(--text);
+    }
+
+    .options {
+        width: 80vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 16px;
+        margin: 10px;
+        background-color: var(--black);
+
+        &__option {
+            display: flex;
+            text-decoration: none;
+            list-style: none;
+            
+            button {
+                display: flex;
+                align-items: center;
+                border: none;
+                padding: auto 10px;
+                background-color: var(--black);
+                cursor: pointer;
+
+                svg {
+                    scale:150%;
+                    padding-right: 10px;
+                    stroke: var(--text);
+                }
+
+                h2 {
+                    // line-height: 50px;
+                    color: var(--text)
+                }
+
+                &:hover {
+                    h2 {color: var(--monkey-brand-color)}
+                    svg {stroke: var(--monkey-brand-color)}
+                }
+            }
+        }
+
+
     }
 }
 
@@ -84,7 +130,7 @@ main {
 
                 &.correct {
                     // color: var(--text-correct);
-                    animation: letter-fade-color 2s linear infinite;
+                    animation: letter-fade-color 4s linear infinite;
                 }
 
                 &.incorrect {
@@ -116,13 +162,9 @@ main {
         }
 
         &__input {
-            margin: 10px 0;
+            // margin: 10px 0;
+            position:absolute;
             opacity: 0;
-            &::placeholder {
-                background-color: var(--red);
-                color: yellow;
-            }
-            
         }
         
     }
@@ -162,6 +204,7 @@ main {
             }
 
             h3 {
+                font-size: 2rem;
                 color: var(--text);
                 display: flex;
                 justify-content: center;
@@ -177,11 +220,12 @@ main {
             }
 
             .stats {
-                animation: letter-fade-color 2s linear infinite;
+                animation: letter-fade-color 4s linear infinite;
             }
         }
 
         .reset {
+            // scale: 80%;
             grid-area: reset;
             color: var(--monkey-brand-color);
             padding: 10px;
@@ -193,10 +237,12 @@ main {
             cursor: pointer;
 
             &:hover {
-                scale: 120%;
-                color: var(--soft-dark);
                 background-color: var(--monkey-brand-color);
                 opacity: 1;
+                
+                img {
+                    scale: 150%;
+                }
             }
         }
     }
@@ -235,6 +281,10 @@ footer {
 }
 
 @keyframes letter-fade-color {
-    0%{color: var(--brand-color)}
-    50%, 100%{color: blueviolet}
+    // 0%{color: var(--brand-color)}
+    // 50%, 100%{color: blueviolet}
+    0%{color: rgb(255, 230, 0)}
+    10%, 100%{color: rgb(255, 106, 0)}
+    // 0%{color: var(--brand-color)}
+    // 50%, 100%{color: blueviolet}
 }           
