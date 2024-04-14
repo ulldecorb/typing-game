@@ -1,4 +1,9 @@
-import {englishLetters} from './DATA.js'
+import {englishLetters, harryPotter} from './DATA.js'
+
+const $timeModeHandler = document.querySelector('#time-mode')
+const $textModeHandler = document.querySelector('#text-mode')
+const $wordsModeHandler = document.querySelector('#words-mode')
+const $zenModeHandler = document.querySelector('#zen-mode')
 
 const $time = document.getElementById('time')
 const $text = document.getElementById('text')
@@ -9,26 +14,51 @@ const $accuracy = document.querySelector('#accuracy')
 const $wpm = document.querySelector('#wpm')
 const $closeInfo = document.querySelector('#closeInfoHandler')
 const INITIAL_TIME = 60
-
-// const TEXT = harryPotter[21]
 const objectiveWords = 30
 let totalWords = 0
-const TEXT = getText(englishLetters)
+let gameMode = ''
+
+// const TEXT = harryPotter[21]
+let TEXT = getText(englishLetters)
 
 
 let words = []
 let currentTime = INITIAL_TIME
 let playing = false
 
+$timeModeHandler.addEventListener('click', () => setGameMode('time'))
+$textModeHandler.addEventListener('click', () => setGameMode('text'))
+$wordsModeHandler.addEventListener('click', () => setGameMode('words'))
+$zenModeHandler.addEventListener('click', () => setGameMode('zen'))
+
+
+
 initGame()
 initEvents()
+
+function setGameMode(mode) {
+    console.log(mode)
+    gameMode = mode
+    reset()
+    if (gameMode === 'text') {
+        // const newText = harryPotter[Math.floor(Math.random(harryPotter.length))].split(' ')
+        const newText = harryPotter[5].split(' ')
+        TEXT = newText
+    }
+    if (gameMode === 'words') {
+        TEXT = getText(englishLetters)
+    }
+
+    initGame()
+    initEvents()
+}
 
 function getText (stringArray) {
     return stringArray.toSorted(() => Math.random() - .5).slice(0, objectiveWords)
 }
 
 function initGame() {
-    words = getText(TEXT)
+    words = TEXT
     currentTime = INITIAL_TIME  
     $totalWords.textContent = `${totalWords}/${objectiveWords}`
 
@@ -68,23 +98,27 @@ function focusInput() {
                 currentTime--
                 $time.textContent = currentTime
                 
+                if (!playing) {clearInterval(intervalId)}
                 if (currentTime <= 0) {
                     clearInterval(intervalId)
                     gameOver()
                 }
         
-                if (!playing) {clearInterval(intervalId)}
             }, 1000)
     }
 }
 
 
-
-function closeInfo() {
+function reset() {
+    playing = false
     totalWords = 0
     currentTime = 0
     $input.value = ''
     $text.innerHTML = ''
+}
+
+function closeInfo() {
+    reset()
 
     $info.style.display = 'none'
     $accuracy.textContent = ''
@@ -160,10 +194,6 @@ function onKeyDown(event) {
     } 
 }
 
-export function testMain(a, b){
-    return a * b + 2
-}
-
 function onKeyUp(event) {
     const $currentWord = document.querySelector('tg-word.active')
     const $currentLetter = document.querySelector('tg-letter.active')
@@ -224,4 +254,14 @@ function gameOver() {
     $wpm.textContent = wpm
     $accuracy.classList.add('correct')
     $wpm.classList.add('correct')
+}
+
+
+
+
+
+
+
+export function testMain(a, b){
+    return a * b + 2
 }

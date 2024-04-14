@@ -116,7 +116,7 @@ main .game__text tg-letter {
   position: relative;
 }
 main .game__text tg-letter.correct {
-  animation: letter-fade-color 4s linear infinite;
+  animation: letter-fade-color 4s linear forwards, pulse-color 4s ease-in-out infinite;
 }
 main .game__text tg-letter.incorrect {
   color: var(--text-error);
@@ -187,7 +187,7 @@ main .info article .accuracy {
   grid-area: accuracy;
 }
 main .info article .stats {
-  animation: letter-fade-color 4s linear infinite;
+  animation: letter-fade-color 4s linear forwards, pulse-color 4s ease-in-out infinite;
 }
 main .info .reset {
   grid-area: reset;
@@ -243,6 +243,14 @@ footer .footer a:hover {
     color: rgb(255, 230, 0);
   }
   10%, 100% {
+    color: rgb(255, 106, 0);
+  }
+}
+@keyframes pulse-color {
+  0%, 100% {
+    color: rgb(255, 230, 0);
+  }
+  50% {
     color: rgb(255, 106, 0);
   }
 }/*# sourceMappingURL=styles.css.map */

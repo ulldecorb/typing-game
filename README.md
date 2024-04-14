@@ -13,7 +13,8 @@ Simple web page to improve type skills created with HTML, CSS and Javascript.
 
 ## Scope of functionalities
 
-
+Set global game-mode
+Handler game-mode selectors
 <!--    
         Logics Diagrames
         Test for component refactor
@@ -53,7 +54,6 @@ This project is based on [this video of Midudev](https://www.youtube.com/watch?v
 Improving the UX and UI with custom sets of colors, svg generator to render the game info stats when game is over and render the wrong type letter. I also get some functionalities from [Agile Fingers](https://agilefingers.com/es) another type web.
 The objectives of develop this web are fun and the opportunity to aply tools and functionalities that I was deserve to touch:
 SVG stats graphic generator
-
 
 ## Jest
 1. Iniciar el projecte:   
