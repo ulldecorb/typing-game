@@ -101,7 +101,7 @@ main {
         display: flex;
         flex-direction: column;
 
-        &__time {
+        &__timer {
             color: var(--gray);
         }
 
@@ -130,7 +130,8 @@ main {
 
                 &.correct {
                     // color: var(--text-correct);
-                    animation: letter-fade-color 4s linear infinite;
+                    animation: letter-fade-color 4s linear forwards,
+                        pulse-color 4s ease-in-out infinite;
                 }
 
                 &.incorrect {
@@ -220,7 +221,8 @@ main {
             }
 
             .stats {
-                animation: letter-fade-color 4s linear infinite;
+                animation: letter-fade-color 4s linear forwards,
+                pulse-color 4s ease-in-out infinite;
             }
         }
 
@@ -284,7 +286,12 @@ footer {
     // 0%{color: var(--brand-color)}
     // 50%, 100%{color: blueviolet}
     0%{color: rgb(255, 230, 0)}
-    10%, 100%{color: rgb(255, 106, 0)}
+    10%, 100% {color: rgb(255, 106, 0)}
     // 0%{color: var(--brand-color)}
     // 50%, 100%{color: blueviolet}
-}           
+}
+
+@keyframes pulse-color {
+    0%, 100% {color:rgb(255, 230, 0)}
+    50%{color: rgb(255, 106, 0)}
+}
