@@ -1,11 +1,11 @@
 import {englishLetters, harryPotter} from './DATA.js'
 
-const $timeModeHandler = document.querySelector('#time-mode')
+const $timerModeHandler = document.querySelector('#timer-mode')
 const $textModeHandler = document.querySelector('#text-mode')
 const $wordsModeHandler = document.querySelector('#words-mode')
 const $zenModeHandler = document.querySelector('#zen-mode')
 
-const $time = document.getElementById('time')
+const $timer = document.getElementById('timer')
 const $text = document.getElementById('text')
 const $input = document.getElementById('type-handler')
 const $totalWords = document.getElementById('word-counter')
@@ -13,37 +13,30 @@ const $info = document.querySelector('.info')
 const $accuracy = document.querySelector('#accuracy')
 const $wpm = document.querySelector('#wpm')
 const $closeInfo = document.querySelector('#closeInfoHandler')
-const INITIAL_TIME = 60
 const objectiveWords = 30
 let totalWords = 0
 let gameMode = ''
 
-// const TEXT = harryPotter[21]
+let INITIAL_TIME = 60
 let TEXT = getText(englishLetters)
-
 
 let words = []
 let currentTime = INITIAL_TIME
 let playing = false
 
-$timeModeHandler.addEventListener('click', () => setGameMode('time'))
+$timerModeHandler.addEventListener('click', () => setGameMode('timer'))
 $textModeHandler.addEventListener('click', () => setGameMode('text'))
 $wordsModeHandler.addEventListener('click', () => setGameMode('words'))
 $zenModeHandler.addEventListener('click', () => setGameMode('zen'))
-
-
 
 initGame()
 initEvents()
 
 function setGameMode(mode) {
-    console.log(mode)
     gameMode = mode
     reset()
     if (gameMode === 'text') {
-        // const newText = harryPotter[Math.floor(Math.random(harryPotter.length))].split(' ')
-        const newText = harryPotter[5].split(' ')
-        TEXT = newText
+        TEXT = harryPotter[Math.floor(Math.random(harryPotter.length))].split(' ')
     }
     if (gameMode === 'words') {
         TEXT = getText(englishLetters)
@@ -51,6 +44,7 @@ function setGameMode(mode) {
 
     initGame()
     initEvents()
+    $info.style.display = 'none'
 }
 
 function getText (stringArray) {
@@ -62,7 +56,16 @@ function initGame() {
     currentTime = INITIAL_TIME  
     $totalWords.textContent = `${totalWords}/${objectiveWords}`
 
-    $time.textContent = currentTime
+    
+    if (gameMode !== 'timer') {
+        $timer.style.display = 'none'
+        $totalWords.style.display = 'block'
+        
+    } else {
+        $timer.style.display = 'block'
+        $totalWords.style.display = 'none'
+    }
+    $timer.textContent = currentTime
 
     $text.innerHTML = words.map((word) => {
         const letters = word.split('')
@@ -93,18 +96,20 @@ function focusInput() {
     if(!playing) {
         playing = true
         
-        const intervalId =
+        if(gameMode === 'timer') {
+            const intervalId =
             setInterval(() => {
                 currentTime--
-                $time.textContent = currentTime
+                $timer.textContent = currentTime
                 
                 if (!playing) {clearInterval(intervalId)}
                 if (currentTime <= 0) {
                     clearInterval(intervalId)
                     gameOver()
                 }
-        
+                
             }, 1000)
+        }
     }
 }
 

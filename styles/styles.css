@@ -92,7 +92,7 @@ main .game {
   display: flex;
   flex-direction: column;
 }
-main .game__time {
+main .game__timer {
   color: var(--gray);
 }
 main .game__word-counter {
