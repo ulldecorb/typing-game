@@ -43,16 +43,17 @@ There are 3 stages on this project:
 
 🟩 reset button => little icon down the text
 
-⬛ Info option bar
-⬛ SVG stats graphic
+⬛ Create gameState object for punctuation and error recolector
+⬛ 🐞 Accuracy return 'infinity' => fix no timer variable
+
+🟩 Info option bar
 ⬛ Replay
 🟩 Next
+⬛ SVG stats graphic
 ⬛ Ghost typing
 ⬛ Save new userState on local storage {game mode, averageData, errorData} 
 
 🟩 🐞 Word counter increase when space
-⬛ Create gameState object for punctuation and error recolector
-⬛ 🐞 Accuracy return 'infinity' => fix no timer variable
 
 ⬛ Style palette {matrix, pokemon, wonderland, retro, ...}
 

@@ -21,7 +21,7 @@ const wordsCounterGoal = 30
 let wordsCounter = 0
 let gameMode = ''
 
-let INITIAL_TIME = 60
+let INITIAL_TIME = 3
 let TEXT = getText(englishLetters)
 
 let words = []
@@ -29,12 +29,7 @@ let currentTime = INITIAL_TIME
 let playing = false
 
 
-setGameMode('words')
-
-function setTimer(time) {
-    INITIAL_TIME = time
-    setGameMode('timer')
-}
+setGameMode('timer')
 
 function setGameMode(mode) {
     gameMode = mode
@@ -90,12 +85,6 @@ function initGame() {
     $firstWord.querySelector('tg-letter').classList.add('active')
 }
 
-function handlerReset(event) {
-    // event.preventDefault()
-    console.log('??')
-    setGameMode(gameMode)
-}
-
 function initEvents() {
     document.addEventListener('keydown', focusInput)
     $input.addEventListener('keydown', onKeyDown)
@@ -116,6 +105,7 @@ function initEvents() {
 
 function focusInput() {
     $input.focus()
+
     if(!playing) {
         playing = true
         
@@ -136,6 +126,10 @@ function focusInput() {
     }
 }
 
+function setTimer(time) {
+    INITIAL_TIME = time
+    setGameMode('timer')
+}
 
 function reset() {
     playing = false
@@ -145,9 +139,14 @@ function reset() {
     $text.innerHTML = ''
 }
 
+function handlerReset(event) {
+    // event.preventDefault()
+    console.log('??')
+    setGameMode(gameMode)
+}
+
 function closeInfo() {
     reset()
-
     $info.style.display = 'none'
     $accuracy.textContent = ''
     $wpm.textContent = ''
@@ -159,7 +158,6 @@ function onKeyDown(event) {
     const $currentWord = document.querySelector('tg-word.active')
     const $currentLetter = document.querySelector('tg-letter.active')
     const {key} = event
-    
     
     if (key === ' ') {
         event.preventDefault() 
@@ -179,9 +177,13 @@ function onKeyDown(event) {
             .querySelectorAll('tg-letter:not(.correct)').length > 0
 
         const classToAdd = hasIncorrectLetters ? 'marked' : 'correct'
-        $currentWord.classList.add(classToAdd)
+    
         wordsCounter++
+        $currentWord.classList.add(classToAdd)
         $wordsCounter.textContent = `${wordsCounter}/${wordsCounterGoal}`
+
+        // const newWordData = {typeTime, condition}
+        // user.gameAcuracy.push(newWordData)
         
         return
     }

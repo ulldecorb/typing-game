@@ -10,47 +10,49 @@
 <body>
     <header>
         <h1 class="title">Typing Game</h1>
-        <ul class="options">
-            <li class="options__option">
-                <button id="timer-mode">
-                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-clock-hour-10"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 12l-3 -2" /><path d="M12 7v5" /></svg>
-                    <h2>timer</h2>
-                </button>
-            </li>
-            <li class="options__option">
-                <button id="text-mode">
-                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-quote"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 11h-4a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h3a1 1 0 0 1 1 1v6c0 2.667 -1.333 4.333 -4 5" /><path d="M19 11h-4a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h3a1 1 0 0 1 1 1v6c0 2.667 -1.333 4.333 -4 5" /></svg>
-                    <h2>text</h2>
-                </button>
-            </li>
-            <li class="options__option">
-                <button id="words-mode">
-                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-letter-case"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17.5 15.5m-3.5 0a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0" /><path d="M3 19v-10.5a3.5 3.5 0 0 1 7 0v10.5" /><path d="M3 13h7" /><path d="M21 12v7" /></svg>
-                    <h2>words</h2>
-                </button>
-            </li>
-            <li class="options__option">
-                <button id="zen-mode">
-                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-planet"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18.816 13.58c2.292 2.138 3.546 4 3.092 4.9c-.745 1.46 -5.783 -.259 -11.255 -3.838c-5.47 -3.579 -9.304 -7.664 -8.56 -9.123c.464 -.91 2.926 -.444 5.803 .805" /><path d="M12 12m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /></svg>
-                    <h2>zen</h2>
-                </button>
-            </li>
-            <li class="options__option">
-                <button id="timer5">
-                    <h2>5</h2>
-                </button>
-            </li>
-            <li class="options__option">
-                <button id="timer30">
-                    <h2>30</h2>
-                </button>
-            </li>
-            <li class="options__option">
-                <button id="timer60">
-                    <h2>60</h2>
-                </button>
-            </li>
-        </ul>
+        <nav>
+            <ul class="options">
+                <li class="options__option">
+                    <button id="timer-mode">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-clock-hour-10"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 12l-3 -2" /><path d="M12 7v5" /></svg>
+                        <h2>timer</h2>
+                    </button>
+                </li>
+                <li class="options__option">
+                    <button id="text-mode">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-quote"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 11h-4a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h3a1 1 0 0 1 1 1v6c0 2.667 -1.333 4.333 -4 5" /><path d="M19 11h-4a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h3a1 1 0 0 1 1 1v6c0 2.667 -1.333 4.333 -4 5" /></svg>
+                        <h2>text</h2>
+                    </button>
+                </li>
+                <li class="options__option">
+                    <button id="words-mode">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-letter-case"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17.5 15.5m-3.5 0a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0 -7 0" /><path d="M3 19v-10.5a3.5 3.5 0 0 1 7 0v10.5" /><path d="M3 13h7" /><path d="M21 12v7" /></svg>
+                        <h2>words</h2>
+                    </button>
+                </li>
+                <li class="options__option">
+                    <button id="zen-mode">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-planet"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18.816 13.58c2.292 2.138 3.546 4 3.092 4.9c-.745 1.46 -5.783 -.259 -11.255 -3.838c-5.47 -3.579 -9.304 -7.664 -8.56 -9.123c.464 -.91 2.926 -.444 5.803 .805" /><path d="M12 12m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /></svg>
+                        <h2>zen</h2>
+                    </button>
+                </li>
+                <li class="options__option">
+                    <button id="timer5">
+                        <h2>5</h2>
+                    </button>
+                </li>
+                <li class="options__option">
+                    <button id="timer30">
+                        <h2>30</h2>
+                    </button>
+                </li>
+                <li class="options__option">
+                    <button id="timer60">
+                        <h2>60</h2>
+                    </button>
+                </li>
+            </ul>
+        </nav>
     </header>
     <main>
         <section class="game">
@@ -70,19 +72,49 @@
         </section>
         <section class="info">
             <article class="wpm">
-                <h2>WPM</h2>
+                <h2>wpm</h2>
                 <h3 id="wpm" class="stats"></h3>
             </article>
-            <article class="acuracy">
-                <h2>Accuracy</h2>
+            <article class="acc">
+                <h2>acc</h2>
                 <h3 id="accuracy" class="stats"></h3>
             </article>
-            <button 
-                id="closeInfoHandler" 
-                class="reset"
-                alt="reset">
-                    <img src="/public/assets/reload.svg" alt="reset">
-                </button>
+            <nav class="info-options">
+                <ol class="options">
+                    <li class="options__option">
+                        <button 
+                            id="closeInfoHandler" 
+                            alt="repeat text">
+                            <img src="/public/assets/reload.svg" alt="reset">
+                            <h2>Repeat</h2>
+                        </button>
+                    </li>
+                    <li class="options__option">
+                        <button 
+                            id="closeInfoHandler" 
+                            alt="next text">
+                            <img src="/public/assets/reload.svg" alt="reset">
+                            <h2>Next</h2>
+                        </button>
+                    </li>
+                    <li class="options__option">
+                        <button 
+                            id="closeInfoHandler" 
+                            alt="see write animation">
+                            <img src="/public/assets/reload.svg" alt="reset">
+                            <h2>Ghost</h2>
+                        </button>
+                    </li>
+                    <li class="options__option">
+                        <button 
+                            id="closeInfoHandler" 
+                            alt="see accuracy graphic">
+                            <img src="/public/assets/reload.svg" alt="reset">
+                            <h2>History</h2>
+                        </button>
+                    </li>
+                </ol>
+            </navcñ>
         </section>
     </main>
     <footer>

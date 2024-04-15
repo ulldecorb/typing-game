@@ -86,8 +86,6 @@ header {
                 }
             }
         }
-
-
     }
 }
 
@@ -179,8 +177,9 @@ main {
         z-index: 2;
         display: none;
         grid-template-areas: 
-            "wpm accuracy"
-            "reset reset"
+            "wpm . ."
+            "acc . ."
+            "reset reset reset"
         ;
         align-content: center;
         justify-content: center;
@@ -216,7 +215,7 @@ main {
                 grid-area: wpm;
             }
 
-            .accuracy {
+            .acc {
                 grid-area: accuracy;
             }
 
@@ -226,24 +225,71 @@ main {
             }
         }
 
-        .reset {
-            // scale: 80%;
-            grid-area: reset;
-            color: var(--monkey-brand-color);
-            padding: 10px;
-            margin: 10px;
-            margin-top: 30px;
-            border-radius: 10px;
-            opacity: .4;
-            transition: all .3s ease-in-out;
-            cursor: pointer;
+        // .reset {
+        //     // scale: 80%;
+        //     grid-area: reset;
+        //     color: var(--monkey-brand-color);
+        //     padding: 10px;
+        //     margin: 10px;
+        //     margin-top: 30px;
+        //     border-radius: 10px;
+        //     opacity: .4;
+        //     transition: all .3s ease-in-out;
+        //     cursor: pointer;
 
-            &:hover {
-                background-color: var(--monkey-brand-color);
-                opacity: 1;
+        //     &:hover {
+        //         background-color: var(--monkey-brand-color);
+        //         opacity: 1;
                 
-                img {
-                    scale: 150%;
+        //         img {
+        //             scale: 150%;
+        //         }
+        //     }
+        // }
+
+        .info-options {
+            grid-area: reset;
+
+            .options {
+                width: 80vh;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                border-radius: 16px;
+                margin: 10px;
+                background-color: var(--black);
+                // text-decoration: none;
+                list-style: none;
+                
+                &__option {
+                    display: flex;
+                    text-decoration: none;
+                    list-style: none;
+                    
+                    button {
+                        display: flex;
+                        align-items: center;
+                        border: none;
+                        padding: auto 10px;
+                        background-color: var(--black);
+                        cursor: pointer;
+                        
+                        svg {
+                            scale:150%;
+                            padding-right: 10px;
+                            stroke: var(--text);
+                        }
+                        
+                        h2 {
+                            // line-height: 50px;
+                            color: var(--text)
+                        }
+                        
+                        &:hover {
+                            h2 {color: var(--monkey-brand-color)}
+                            svg {stroke: var(--monkey-brand-color)}
+                        }
+                    }
                 }
             }
         }
@@ -257,8 +303,8 @@ footer {
     text-align: center;
     width: 100%;
     z-index: 3;
-
-
+    
+    
     .footer {
         font-size: .8rem;
         width: 100%;
