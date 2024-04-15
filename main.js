@@ -4,33 +4,32 @@ const $timerModeHandler = document.querySelector('#timer-mode')
 const $textModeHandler = document.querySelector('#text-mode')
 const $wordsModeHandler = document.querySelector('#words-mode')
 const $zenModeHandler = document.querySelector('#zen-mode')
+const $timer5 = document.querySelector('#timer5') 
+const $timer30 = document.querySelector('#timer30') 
+const $timer60 = document.querySelector('#timer60') 
 
 const $timer = document.getElementById('timer')
 const $text = document.getElementById('text')
 const $input = document.getElementById('type-handler')
-const $totalWords = document.getElementById('word-counter')
+const $wordsCounter = document.getElementById('word-counter')
 const $info = document.querySelector('.info')
 const $accuracy = document.querySelector('#accuracy')
 const $wpm = document.querySelector('#wpm')
+const $reset = document.querySelector('#reset')
 const $closeInfo = document.querySelector('#closeInfoHandler')
-const objectiveWords = 30
-let totalWords = 0
+const wordsCounterGoal = 30
+let wordsCounter = 0
 let gameMode = ''
 
-let INITIAL_TIME = 60
+let INITIAL_TIME = 3
 let TEXT = getText(englishLetters)
 
 let words = []
 let currentTime = INITIAL_TIME
 let playing = false
 
-$timerModeHandler.addEventListener('click', () => setGameMode('timer'))
-$textModeHandler.addEventListener('click', () => setGameMode('text'))
-$wordsModeHandler.addEventListener('click', () => setGameMode('words'))
-$zenModeHandler.addEventListener('click', () => setGameMode('zen'))
 
-initGame()
-initEvents()
+setGameMode('timer')
 
 function setGameMode(mode) {
     gameMode = mode
@@ -47,23 +46,25 @@ function setGameMode(mode) {
     $info.style.display = 'none'
 }
 
-function getText (stringArray) {
-    return stringArray.toSorted(() => Math.random() - .5).slice(0, objectiveWords)
+function getText(wordsArray) {
+    return wordsArray.toSorted(() => Math.random() - .5).slice(0, wordsCounterGoal)
 }
 
 function initGame() {
     words = TEXT
     currentTime = INITIAL_TIME  
-    $totalWords.textContent = `${totalWords}/${objectiveWords}`
+    $wordsCounter.textContent = `${wordsCounter}/${wordsCounterGoal}`
 
     
-    if (gameMode !== 'timer') {
-        $timer.style.display = 'none'
-        $totalWords.style.display = 'block'
-        
-    } else {
+    if (gameMode === 'timer') {
         $timer.style.display = 'block'
-        $totalWords.style.display = 'none'
+        $wordsCounter.style.display = 'none'
+    } else if (gameMode === 'words') {
+            $timer.style.display = 'none'
+            $wordsCounter.style.display = 'block'
+    } else {
+        $timer.style.display = 'none'
+        $wordsCounter.style.display = 'none'
     }
     $timer.textContent = currentTime
 
@@ -89,10 +90,22 @@ function initEvents() {
     $input.addEventListener('keydown', onKeyDown)
     $input.addEventListener('keyup', onKeyUp)
     $closeInfo.addEventListener('click', closeInfo)
+
+    $timer5.addEventListener('click', () => setTimer(5))
+    $timer30.addEventListener('click', () => setTimer(30))
+    $timer60.addEventListener('click', () => setTimer(60))
+    
+    $timerModeHandler.addEventListener('click', () => setGameMode('timer'))
+    $textModeHandler.addEventListener('click', () => setGameMode('text'))
+    $wordsModeHandler.addEventListener('click', () => setGameMode('words'))
+    $zenModeHandler.addEventListener('click', () => setGameMode('zen'))
+    
+    $reset.addEventListener('click', handlerReset)
 }
 
 function focusInput() {
     $input.focus()
+
     if(!playing) {
         playing = true
         
@@ -113,18 +126,27 @@ function focusInput() {
     }
 }
 
+function setTimer(time) {
+    INITIAL_TIME = time
+    setGameMode('timer')
+}
 
 function reset() {
     playing = false
-    totalWords = 0
+    wordsCounter = 0
     currentTime = 0
     $input.value = ''
     $text.innerHTML = ''
 }
 
+function handlerReset(event) {
+    // event.preventDefault()
+    console.log('??')
+    setGameMode(gameMode)
+}
+
 function closeInfo() {
     reset()
-
     $info.style.display = 'none'
     $accuracy.textContent = ''
     $wpm.textContent = ''
@@ -136,7 +158,6 @@ function onKeyDown(event) {
     const $currentWord = document.querySelector('tg-word.active')
     const $currentLetter = document.querySelector('tg-letter.active')
     const {key} = event
-    
     
     if (key === ' ') {
         event.preventDefault() 
@@ -156,9 +177,13 @@ function onKeyDown(event) {
             .querySelectorAll('tg-letter:not(.correct)').length > 0
 
         const classToAdd = hasIncorrectLetters ? 'marked' : 'correct'
+    
+        wordsCounter++
         $currentWord.classList.add(classToAdd)
-        totalWords++
-        $totalWords.textContent = `${totalWords}/${objectiveWords}`
+        $wordsCounter.textContent = `${wordsCounter}/${wordsCounterGoal}`
+
+        // const newWordData = {typeTime, condition}
+        // user.gameAcuracy.push(newWordData)
         
         return
     }
@@ -175,8 +200,8 @@ function onKeyDown(event) {
         const $markedWord = $text.querySelector('tg-word.marked')
         if (!$prevLetter && $markedWord) {
             event.preventDefault()
-            totalWords--
-            $totalWords.textContent = `${totalWords}/${objectiveWords}`
+            wordsCounter--
+            $wordsCounter.textContent = `${wordsCounter}/${wordsCounterGoal}`
             $prevWord.classList.remove('marked')
             $prevWord.classList.add('active')
 
@@ -247,7 +272,7 @@ function gameOver() {
     $input.removeEventListener('keydown', onKeyDown)
     $input.removeEventListener('keyup', onKeyUp)
     document.removeEventListener('keydown', focusInput)
-    const wpm = Math.floor( totalWords / (INITIAL_TIME - currentTime) * 60)
+    const wpm = Math.floor( wordsCounter / (INITIAL_TIME - currentTime) * 60)
 
     const errors = document.querySelectorAll('tg-letter.incorrect').length
     const totalLetters = document.querySelectorAll('.correct, .incorrect').length

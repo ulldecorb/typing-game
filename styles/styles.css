@@ -151,7 +151,7 @@ main .info {
   width: 100%;
   z-index: 2;
   display: none;
-  grid-template-areas: "wpm accuracy" "reset reset";
+  grid-template-areas: "wpm . ." "acc . ." "reset reset reset";
   align-content: center;
   justify-content: center;
   background-color: var(--soft-dark);
@@ -183,29 +183,51 @@ main .info article h3 {
 main .info article .wpm {
   grid-area: wpm;
 }
-main .info article .accuracy {
+main .info article .acc {
   grid-area: accuracy;
 }
 main .info article .stats {
   animation: letter-fade-color 4s linear forwards, pulse-color 4s ease-in-out infinite;
 }
-main .info .reset {
+main .info .info-options {
   grid-area: reset;
-  color: var(--monkey-brand-color);
-  padding: 10px;
+}
+main .info .info-options .options {
+  width: 80vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 16px;
   margin: 10px;
-  margin-top: 30px;
-  border-radius: 10px;
-  opacity: 0.4;
-  transition: all 0.3s ease-in-out;
+  background-color: var(--black);
+  list-style: none;
+}
+main .info .info-options .options__option {
+  display: flex;
+  text-decoration: none;
+  list-style: none;
+}
+main .info .info-options .options__option button {
+  display: flex;
+  align-items: center;
+  border: none;
+  padding: auto 10px;
+  background-color: var(--black);
   cursor: pointer;
 }
-main .info .reset:hover {
-  background-color: var(--monkey-brand-color);
-  opacity: 1;
-}
-main .info .reset:hover img {
+main .info .info-options .options__option button svg {
   scale: 150%;
+  padding-right: 10px;
+  stroke: var(--text);
+}
+main .info .info-options .options__option button h2 {
+  color: var(--text);
+}
+main .info .info-options .options__option button:hover h2 {
+  color: var(--monkey-brand-color);
+}
+main .info .info-options .options__option button:hover svg {
+  stroke: var(--monkey-brand-color);
 }
 
 footer {

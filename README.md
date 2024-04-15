@@ -36,28 +36,29 @@ There are 3 stages on this project:
 ### 2. Develop custom features and refactor style
 > 🛠 On Progres...
 
-⬛ Header game option bar
+🟩 Header game option bar
 ⬛ bar > toggle typing source (numbers/punctuation)
-⬛ bar > toggle typing modes (time/words/paragraph/zen)
-⬛ bar > toggle time selector
+🟩 bar > toggle typing modes (time/words/paragraph/zen)
+🟩 bar > toggle time selector
 
-⬛ reset button => little icon down the text
+🟩 reset button => little icon down the text
 
-⬛ Info option bar
-⬛ SVG stats graphic
+⬛ Create gameState object for punctuation and error recolector
+⬛ 🐞 Accuracy return 'infinity' => fix no timer variable
+
+🟩 Info option bar
 ⬛ Replay
 🟩 Next
+⬛ SVG stats graphic
 ⬛ Ghost typing
 ⬛ Save new userState on local storage {game mode, averageData, errorData} 
 
-⬛ Create gameState object for punctuation and error recolector
-⬛ 🐞 Accuracy return 'infinity' => fix no timer variable´
+🟩 🐞 Word counter increase when space
 
 ⬛ Style palette {matrix, pokemon, wonderland, retro, ...}
 
 ⬛ Await load game mode from local storage
-🟩 🐞 Word counter increase when space
-⬛ Space logic => if ($totalLettersCorrectOrIncorrectInCurrentWord.length < 1) no jump to $nextWord
+⬛ Key down 'Space' logic => if ($totalLettersCorrectOrIncorrectInCurrentWord.length < 1) no jump to $nextWord
 ⬛ UX > Tooltips
 🟩 UI > SVG icons for bar
 ⬛ UI > Custom SVG icons
