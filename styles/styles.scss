@@ -93,12 +93,12 @@ header {
 
                 .tooltiptext {
                     visibility: hidden;
-                    // width: 120px;
-                    background-color: rgba(0, 0, 0, 0.808);
+                    min-width: 200px;
+                    background-color: rgba(0, 0, 0, 0.614);
                     color: #fff;
                     font-size: 1rem;
                     text-align: center;
-                    border-radius: 6px;
+                    border-radius: 20px;
                     padding: 7px;
                     position: absolute;
                     z-index: 1;
@@ -369,7 +369,7 @@ footer {
 
         &:hover {
             b::after {
-                font-size: 1rem;
+                // font-size: 1rem;
                 animation: heart-beat 2s ease-in-out infinite;
             }
         }
@@ -403,13 +403,15 @@ footer {
 
 @keyframes heart-beat {
     0%, 100% {
-        font-size: .8rem;
-        left: 0;
-        bottom: 0;
+        // font-size: .8rem;
+        // left: 0;
+        // bottom: 0;
+        scale: 100%;
     }
     50% {
-        font-size: 1rem;
-        left: -2px;
-        bottom: -2px;
+        scale: 150%;
+        // font-size: 1rem;
+        // left: -2px;
+        // bottom: -2px;
     }
 }

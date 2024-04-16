@@ -47,19 +47,22 @@ There are 3 stages on this project:
 ⬛ 🐞 Accuracy return 'infinity' => fix no timer variable
 
 🟩 Info option bar
-⬛ Replay
 🟩 Next
 ⬛ SVG stats graphic
+⬛ Type same text again
+⬛ Replay
+⬛ Replay
 ⬛ Ghost typing
-⬛ Save new userState on local storage {game mode, averageData, errorData} 
+
+⬛ On game over => Save new userState on local storage {game mode, averageData, errorData} 
 
 🟩 🐞 Word counter increase when space
 
 ⬛ Style palette {matrix, pokemon, wonderland, retro, ...}
 
-⬛ Await load game mode from local storage
+⬛ On start => Await load game mode from local storage
 ⬛ Key down 'Space' logic => if ($totalLettersCorrectOrIncorrectInCurrentWord.length < 1) no jump to $nextWord
-⬛ UX > Tooltips
+🟩 UX > Tooltips
 🟩 UI > SVG icons for bar
 ⬛ UI > Custom SVG icons
 ⬛ :after render .incorrectLetters
