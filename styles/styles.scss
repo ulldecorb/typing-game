@@ -352,6 +352,26 @@ footer {
                 color: var(--monkey-brand-color)
             }
         }
+
+        b {
+            font-size: .8rem;
+            position: relative;
+            text-align: center;
+            &::after {
+                content: '💖';
+                position: absolute;
+                left: 0;
+                right: 0;
+                font-size: .8rem;
+            }
+        }
+
+        &:hover {
+            b::after {
+                font-size: 1rem;
+                animation: heart-beat 2s ease-in-out infinite;
+            }
+        }
     }
 }
 
@@ -378,4 +398,9 @@ footer {
 @keyframes late-fade-in {
     0%, 86% {opacity: 0;}
     100% {opacity: 1;}
+}
+
+@keyframes heart-beat {
+    0%, 100% {font-size: .8rem;}
+    50% {font-size: 1rem;}
 }
