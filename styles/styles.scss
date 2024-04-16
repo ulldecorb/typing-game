@@ -356,12 +356,13 @@ footer {
         b {
             font-size: .8rem;
             position: relative;
-            text-align: center;
+            // text-align: center;
+
             &::after {
                 content: '💖';
                 position: absolute;
                 left: 0;
-                right: 0;
+                bottom: 0;  
                 font-size: .8rem;
             }
         }
@@ -401,6 +402,14 @@ footer {
 }
 
 @keyframes heart-beat {
-    0%, 100% {font-size: .8rem;}
-    50% {font-size: 1rem;}
+    0%, 100% {
+        font-size: .8rem;
+        left: 0;
+        bottom: 0;
+    }
+    50% {
+        font-size: 1rem;
+        left: -2px;
+        bottom: -2px;
+    }
 }

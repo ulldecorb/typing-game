@@ -284,13 +284,12 @@ footer .footer a:hover {
 footer .footer b {
   font-size: 0.8rem;
   position: relative;
-  text-align: center;
 }
 footer .footer b::after {
   content: "💖";
   position: absolute;
   left: 0;
-  right: 0;
+  bottom: 0;
   font-size: 0.8rem;
 }
 footer .footer:hover b::after {
@@ -333,8 +332,12 @@ footer .footer:hover b::after {
 @keyframes heart-beat {
   0%, 100% {
     font-size: 0.8rem;
+    left: 0;
+    bottom: 0;
   }
   50% {
     font-size: 1rem;
+    left: -2px;
+    bottom: -2px;
   }
 }/*# sourceMappingURL=styles.css.map */
