@@ -64,6 +64,7 @@ header {
             button {
                 display: flex;
                 align-items: center;
+                position: relative;
                 border: none;
                 padding: auto 10px;
                 background-color: var(--black);
@@ -83,6 +84,38 @@ header {
                 &:hover {
                     h2 {color: var(--monkey-brand-color)}
                     svg {stroke: var(--monkey-brand-color)}
+
+                    .tooltiptext {
+                        visibility: visible;
+                        animation: late-fade-in 1.2s ease-out 1 forwards;
+                    }
+                }
+
+                .tooltiptext {
+                    visibility: hidden;
+                    // width: 120px;
+                    background-color: rgba(0, 0, 0, 0.808);
+                    color: #fff;
+                    font-size: 1rem;
+                    text-align: center;
+                    border-radius: 6px;
+                    padding: 7px;
+                    position: absolute;
+                    z-index: 1;
+                    top: 130%;
+                    left: 50%;
+                    margin-left: -60px;
+
+                    &::after {
+                        content: " ";
+                        position: absolute;
+                        bottom: 100%;  /* At the top of the tooltip */
+                        left: 50%;
+                        margin-left: -10px;
+                        border-width: 10px;
+                        border-style: solid;
+                        border-color: transparent transparent black transparent;
+                    }
                 }
             }
         }
@@ -319,6 +352,27 @@ footer {
                 color: var(--monkey-brand-color)
             }
         }
+
+        b {
+            font-size: .8rem;
+            position: relative;
+            // text-align: center;
+
+            &::after {
+                content: '💖';
+                position: absolute;
+                left: 0;
+                bottom: 0;  
+                font-size: .8rem;
+            }
+        }
+
+        &:hover {
+            b::after {
+                font-size: 1rem;
+                animation: heart-beat 2s ease-in-out infinite;
+            }
+        }
     }
 }
 
@@ -340,4 +394,22 @@ footer {
 @keyframes pulse-color {
     0%, 100% {color:rgb(255, 230, 0)}
     50%{color: rgb(255, 106, 0)}
+}
+
+@keyframes late-fade-in {
+    0%, 86% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes heart-beat {
+    0%, 100% {
+        font-size: .8rem;
+        left: 0;
+        bottom: 0;
+    }
+    50% {
+        font-size: 1rem;
+        left: -2px;
+        bottom: -2px;
+    }
 }
