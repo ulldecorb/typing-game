@@ -175,22 +175,21 @@ main .game__input {
   opacity: 0;
 }
 main .info {
-  position: absolute;
-  top: 0;
-  left: 0;
   height: 100%;
   width: 100%;
   z-index: 2;
-  display: none;
-  grid-template-areas: "wpm . ." "acc . ." "reset reset reset";
+  display: grid;
+  grid-template-areas: "wpm graphic graphic" "acc graphic graphic" "reset reset reset";
+  grid-template-columns: 250px 1fr 1fr;
+  grid-template-rows: 250px 250px 1fr;
   align-content: center;
   justify-content: center;
   background-color: var(--soft-dark);
   padding: 5vmax;
 }
-main .info article {
-  width: 20vw;
-  height: 20vw;
+main .info__box {
+  width: 200px;
+  height: 200px;
   margin: 10px;
   padding: 20px;
   border-radius: 10px;
@@ -199,26 +198,27 @@ main .info article {
   display: grid;
   grid-template-rows: 1fr 2fr;
 }
-main .info article h2 {
+main .info__box .title {
   width: 100%;
   text-align: center;
   color: var(--monkey-brand-color);
 }
-main .info article h3 {
+main .info__box .stats {
   font-size: 2rem;
   color: var(--text);
   display: flex;
   justify-content: center;
   align-items: center;
-}
-main .info article .wpm {
-  grid-area: wpm;
-}
-main .info article .acc {
-  grid-area: accuracy;
-}
-main .info article .stats {
   animation: letter-fade-color 4s linear forwards, pulse-color 4s ease-in-out infinite;
+}
+main .info .wpm {
+  grid-area: "wpm";
+}
+main .info .acc {
+  grid-area: "accuracy";
+}
+main .info .graphic {
+  grid-area: "graphic";
 }
 main .info .info-options {
   grid-area: reset;
