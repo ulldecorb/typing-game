@@ -150,7 +150,8 @@ function reset() {
 
 function handlerReset(event) {
     // event.preventDefault()
-    console.log('??')
+
+    console.log({$input})
     setGameMode(gameMode)
 }
 
@@ -173,7 +174,7 @@ function onKeyDown(event) {
 
         if (gameMode === 'zen') {
             const $newWord = document.createElement('tg-word')
-            $newWord.innerHTML = '<tg-letter> </tg-letter>'
+            $newWord.innerHTML = '<tg-letter></tg-letter>'
             $newWord.classList.add('active')
             $newWord.querySelector('tg-letter').classList.add('active', 'correct')
             
@@ -278,12 +279,12 @@ function onKeyUp(event) {
         const {key} = event
         if (key.length > 1 || key === ' ') return
         const $newLetter = document.createElement('tg-letter')
-        $newLetter.innerText = ' '
+        // $newLetter.innerText = ''
 
         $currentLetter.innerText = key
         $currentLetter.classList.remove('active')
         $newLetter.classList.add('active', 'correct')
-        $currentWord.insertAdjacentElement('beforeend', $newLetter)
+        $currentLetter.insertAdjacentElement('afterend', $newLetter)
 
         return
     }
