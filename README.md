@@ -44,7 +44,7 @@ There are 3 stages on this project:
 🟩 reset button => little icon down the text
 
 ⬛ Create gameState object for punctuation and error recolector
-⬛ 🐞 Accuracy return 'infinity' => fix no timer variable
+⬛ 🐞 Accuracy return 'infinity' => fix game modes with not timer variable
 
 🟩 Info option bar
 🟩 Next

@@ -202,26 +202,28 @@ main {
     }
 
     .info {
-        position: absolute;
-        top: 0;
-        left: 0;
+        // position: absolute;
+        // top: 0;
+        // left: 0;
         height: 100%;
         width: 100%;
         z-index: 2;
-        display: none;
+        display: grid;
         grid-template-areas: 
-            "wpm . ."
-            "acc . ."
+            "wpm graphic graphic"
+            "acc graphic graphic"
             "reset reset reset"
         ;
+        grid-template-columns: 250px 1fr 1fr;
+        grid-template-rows: 250px 250px 1fr;
         align-content: center;
         justify-content: center;
         background-color: var(--soft-dark);
         padding: 5vmax;
 
-        article {
-            width: 20vw;
-            height: 20vw;
+        &__box {
+            width: 200px;
+            height: 200px;
             margin: 10px;
             padding: 20px;
             border-radius: 10px;
@@ -230,32 +232,34 @@ main {
             display: grid;
             grid-template-rows: 1fr 2fr;            ;
 
-            h2 {
+            .title {
                 width: 100%;
                 text-align: center;
-                color: var(--monkey-brand-color)
+                color: var(--monkey-brand-color);
             }
 
-            h3 {
+            .stats {
                 font-size: 2rem;
                 color: var(--text);
                 display: flex;
                 justify-content: center;
                 align-items: center;
-            }
-
-            .wpm {
-                grid-area: wpm;
-            }
-
-            .acc {
-                grid-area: accuracy;
-            }
-
-            .stats {
                 animation: letter-fade-color 4s linear forwards,
                 pulse-color 4s ease-in-out infinite;
             }
+        }
+
+        .wpm {
+            grid-area: 'wpm';
+        }
+
+        .acc {
+            grid-area: 'accuracy';
+        }
+
+        .graphic {
+            grid-area: 'graphic';
+
         }
 
         // .reset {
@@ -402,16 +406,6 @@ footer {
 }
 
 @keyframes heart-beat {
-    0%, 100% {
-        // font-size: .8rem;
-        // left: 0;
-        // bottom: 0;
-        scale: 100%;
-    }
-    50% {
-        scale: 150%;
-        // font-size: 1rem;
-        // left: -2px;
-        // bottom: -2px;
-    }
+    0%, 100% {scale: 100%;}
+    50% {scale: 150%;}
 }

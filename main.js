@@ -1,22 +1,24 @@
 import {englishLetters, harryPotter} from './DATA.js'
 
-const $timerModeHandler = document.querySelector('#timer-mode')
-const $textModeHandler = document.querySelector('#text-mode')
-const $wordsModeHandler = document.querySelector('#words-mode')
-const $zenModeHandler = document.querySelector('#zen-mode')
-const $timer5 = document.querySelector('#timer5') 
-const $timer30 = document.querySelector('#timer30') 
-const $timer60 = document.querySelector('#timer60') 
+const $timerModeHandler = document.getElementById('timer-mode')
+const $textModeHandler = document.getElementById('text-mode')
+const $wordsModeHandler = document.getElementById('words-mode')
+const $zenModeHandler = document.getElementById('zen-mode')
+const $timer5 = document.getElementById('timer5') 
+const $timer30 = document.getElementById('timer30') 
+const $timer60 = document.getElementById('timer60') 
 
+const $game = document.querySelector('.game')
 const $timer = document.getElementById('timer')
 const $text = document.getElementById('text')
 const $input = document.getElementById('type-handler')
 const $wordsCounter = document.getElementById('word-counter')
 const $info = document.querySelector('.info')
-const $accuracy = document.querySelector('#accuracy')
-const $wpm = document.querySelector('#wpm')
-const $reset = document.querySelector('#reset')
-const $closeInfo = document.querySelector('#closeInfoHandler')
+const $accuracy = document.getElementById('accuracy')
+const $wpm = document.getElementById('wpm')
+const $reset = document.getElementById('reset')
+const $closeInfo = document.getElementById('closeInfoHandler')
+
 const wordsCounterGoal = 30
 let wordsCounter = 0
 let gameMode = ''
@@ -29,9 +31,9 @@ let currentTime = INITIAL_TIME
 let playing = false
 
 
-setGameMode('timer')
+setGameMode('zen')
 
-function setGameMode(mode) {
+function setGameMode(mode) {    
     gameMode = mode
     reset()
     if (gameMode === 'text') {
@@ -39,6 +41,10 @@ function setGameMode(mode) {
     }
     if (gameMode === 'words') {
         TEXT = getText(englishLetters)
+    }
+
+    if (gameMode === 'zen') {
+        TEXT = [' ']
     }
 
     initGame()
@@ -51,10 +57,10 @@ function getText(wordsArray) {
 }
 
 function initGame() {
+
     words = TEXT
     currentTime = INITIAL_TIME  
     $wordsCounter.textContent = `${wordsCounter}/${wordsCounterGoal}`
-
     
     if (gameMode === 'timer') {
         $timer.style.display = 'block'
@@ -80,9 +86,11 @@ function initGame() {
         `
     }).join('')
 
+    // Active first word and letter
     const $firstWord = $text.querySelector('tg-word')
     $firstWord.classList.add('active')
     $firstWord.querySelector('tg-letter').classList.add('active')
+    if (gameMode === 'zen') $firstWord.querySelector('tg-letter').classList.add('correct')
 }
 
 function initEvents() {
@@ -135,6 +143,7 @@ function reset() {
     playing = false
     wordsCounter = 0
     currentTime = 0
+    $game.style.display = 'flex'
     $input.value = ''
     $text.innerHTML = ''
 }
@@ -147,11 +156,11 @@ function handlerReset(event) {
 
 function closeInfo() {
     reset()
+    initGame()
+    initEvents()
     $info.style.display = 'none'
     $accuracy.textContent = ''
     $wpm.textContent = ''
-    initGame()
-    initEvents()
 }
 
 function onKeyDown(event) {
@@ -161,6 +170,19 @@ function onKeyDown(event) {
     
     if (key === ' ') {
         event.preventDefault() 
+
+        if (gameMode === 'zen') {
+            const $newWord = document.createElement('tg-word')
+            $newWord.innerHTML = '<tg-letter> </tg-letter>'
+            $newWord.classList.add('active')
+            $newWord.querySelector('tg-letter').classList.add('active', 'correct')
+            
+            $currentWord.classList.remove('active')
+            $currentLetter.remove()
+            
+            $currentWord.insertAdjacentElement('afterend', $newWord)
+            return
+        }
 
         const $nextWord = $currentWord.nextElementSibling
         const $nextLetter = $nextWord.querySelector('tg-letter')            
@@ -181,14 +203,37 @@ function onKeyDown(event) {
         wordsCounter++
         $currentWord.classList.add(classToAdd)
         $wordsCounter.textContent = `${wordsCounter}/${wordsCounterGoal}`
-
+        
         // const newWordData = {typeTime, condition}
         // user.gameAcuracy.push(newWordData)
         
         return
     }
-
+    
     if (key === 'Backspace') {
+        if (gameMode === 'zen') {
+            if (!$currentLetter.previousElementSibling && !$currentWord.previousElementSibling) return
+
+            if (!$currentLetter.previousElementSibling) {
+                $currentWord.previousElementSibling.classList.add('active')
+                // $currentWord.previousElementSibling.querySelector('tg-letter:last-child').classList.add('active')
+
+                
+        const $newLetter = document.createElement('tg-letter')
+        $newLetter.innerText = ' '
+        $newLetter.classList.add('active', 'correct')
+        $currentWord.previousElementSibling.insertAdjacentElement('beforeend', $newLetter)
+
+
+                $currentWord.remove()
+
+                return
+            }
+            $currentLetter.previousElementSibling.remove()
+
+            return
+        }
+
         const $prevWord = $currentWord.previousElementSibling
         const $prevLetter = $currentLetter.previousElementSibling  
 
@@ -227,6 +272,23 @@ function onKeyDown(event) {
 function onKeyUp(event) {
     const $currentWord = document.querySelector('tg-word.active')
     const $currentLetter = document.querySelector('tg-letter.active')
+    
+    if (gameMode === 'zen') {
+        event.preventDefault()
+        const {key} = event
+        if (key.length > 1 || key === ' ') return
+        const $newLetter = document.createElement('tg-letter')
+        $newLetter.innerText = ' '
+
+        $currentLetter.innerText = key
+        $currentLetter.classList.remove('active')
+        $newLetter.classList.add('active', 'correct')
+        $currentWord.insertAdjacentElement('beforeend', $newLetter)
+
+        return
+    }
+    
+
     
     const currentWord = $currentWord.innerText.trim()
     $input.maxLength = currentWord.length
@@ -279,6 +341,7 @@ function gameOver() {
     let accuracy = (100 - (errors * 100 / totalLetters)) 
     if (isNaN(accuracy)) {accuracy = 0} 
 
+    $game.style.display = 'none';
     $info.style.display = 'grid'
     $accuracy.textContent = `${accuracy.toFixed(1)}%`
     $wpm.textContent = wpm
