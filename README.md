@@ -43,15 +43,14 @@ There are 3 stages on this project:
 
 🟩 reset button => little icon down the text
 
-⬛ Create gameState object for punctuation and error recolector
-⬛ 🐞 Accuracy return 'infinity' => fix game modes with not timer variable
+🟩 Create gameState object for punctuation and error recolector
+🟩 🐞 Accuracy return 'infinity' => fix game modes with not timer variable
 
 🟩 Info option bar
 🟩 Next
 ⬛ SVG stats graphic
 ⬛ Type same text again
-⬛ Replay
-⬛ Replay
+🟩 Replay
 ⬛ Ghost typing
 
 ⬛ On game over => Save new userState on local storage {game mode, averageData, errorData} 
@@ -77,6 +76,15 @@ This project is based on [this video of Midudev](https://www.youtube.com/watch?v
 Improving the UX and UI with custom sets of colors, svg generator to render the game info stats when game is over and render the wrong type letter. I also get some functionalities from [Agile Fingers](https://agilefingers.com/es) another type web.
 The objectives of develop this web are fun and the opportunity to aply tools and functionalities that I was deserve to touch:
 SVG stats graphic generator
+
+<!-- .
+topics:
+
+::after ::before usefull aproach
+custom svg as code crafter
+gamification
+test for refactor
+. -->
 
 ## Jest
 1. Iniciar el projecte:   
