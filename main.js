@@ -148,11 +148,19 @@ function reset() {
     $text.innerHTML = ''
 }
 
-function handlerReset(event) {
-    // event.preventDefault()
-
-    console.log({$input})
+function handlerReset() {
     setGameMode(gameMode)
+}
+
+function printText() {
+    let newText = ''
+    $text.querySelectorAll('tg-word').forEach($word => {
+        $word.querySelectorAll('tg-letter').forEach($letter => {
+            newText = newText + $letter.innerText
+        })
+        newText = newText + ' '
+    })
+    console.log(newText)
 }
 
 function closeInfo() {
