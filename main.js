@@ -19,11 +19,13 @@ const $wpm = document.getElementById('wpm')
 const $reset = document.getElementById('reset')
 const $closeInfo = document.getElementById('closeInfoHandler')
 
-const wordsCounterGoal = 30
+const STATE = {currentGameData: []}
+
+const wordsCounterGoal = 10
 let wordsCounter = 0
 let gameMode = ''
 
-let INITIAL_TIME = 3
+let INITIAL_TIME = 5
 let TEXT = getText(englishLetters)
 
 let words = []
@@ -31,7 +33,7 @@ let currentTime = INITIAL_TIME
 let playing = false
 
 
-setGameMode('zen')
+setGameMode('timer')
 
 function setGameMode(mode) {    
     gameMode = mode
@@ -148,11 +150,19 @@ function reset() {
     $text.innerHTML = ''
 }
 
-function handlerReset(event) {
-    // event.preventDefault()
-
-    console.log({$input})
+function handlerReset() {
     setGameMode(gameMode)
+}
+
+function printText() {
+    let newText = ''
+    $text.querySelectorAll('tg-word').forEach($word => {
+        $word.querySelectorAll('tg-letter').forEach($letter => {
+            newText = newText + $letter.innerText
+        })
+        newText = newText + ' '
+    })
+    console.log(newText)
 }
 
 function closeInfo() {
@@ -271,16 +281,15 @@ function onKeyDown(event) {
 }
 
 function onKeyUp(event) {
+    event.preventDefault()
+    const {key} = event
     const $currentWord = document.querySelector('tg-word.active')
     const $currentLetter = document.querySelector('tg-letter.active')
     
     if (gameMode === 'zen') {
-        event.preventDefault()
         const {key} = event
         if (key.length > 1 || key === ' ') return
         const $newLetter = document.createElement('tg-letter')
-        // $newLetter.innerText = ''
-
         $currentLetter.innerText = key
         $currentLetter.classList.remove('active')
         $newLetter.classList.add('active', 'correct')
@@ -289,8 +298,6 @@ function onKeyUp(event) {
         return
     }
     
-
-    
     const currentWord = $currentWord.innerText.trim()
     $input.maxLength = currentWord.length
     
@@ -298,21 +305,24 @@ function onKeyUp(event) {
 
     $allLetters.forEach(letter => letter.classList.remove('correct', 'incorrect'))
 
+    // Capture type status
+    if (playing) getGameData($currentWord, key)
+
+    // display letter status
     $input.value.split('').forEach((letter, index) => {
         const $letter = $allLetters[index]
         const letterToCheck = currentWord[index]
-        const {key} = event
 
         const isCorrect = letter === letterToCheck
         const letterClass = isCorrect ? 'correct' : 'incorrect'
-
         $letter.classList.add(letterClass)
-
+        
         // TODO =>  if (incorrect) => $letter.textContent = :after content   
         if (!isCorrect && key.length === 1) {
             $currentLetter.style.setProperty('--after-content', key);
         }
     })
+
       
     $currentLetter.classList.remove('active', 'is-last')
     const inputLenght = $input.value.length
@@ -325,6 +335,18 @@ function onKeyUp(event) {
         const $isNextWord = $currentWord.nextElementSibling
         if(!$isNextWord) gameOver()
     }
+}
+
+function getGameData($currentWord, key) {
+    if ( key === ' ' || key === 'Backspace') return
+    const isCorrect = key === $currentWord.querySelectorAll('tg-letter')[$input.value.length - 1].textContent
+    // Set gameData to info graphics
+    const newGameData = {
+        time: Date.now(),
+        isCorrect,
+        key
+    }
+    STATE.currentGameData.push(newGameData)
 }
 
 function gameOver() {
@@ -348,8 +370,18 @@ function gameOver() {
     $wpm.textContent = wpm
     $accuracy.classList.add('correct')
     $wpm.classList.add('correct')
-}
 
+    console.log(STATE.currentGameData)
+    let finalData = []
+    STATE.currentGameData.forEach((data) => {
+        const isNew = finalData.some((val) => {
+            return val.time === data.time
+        })
+        if (!isNew) finalData.push(data)
+    })
+
+    console.log('finalData: ', STATE.currentGameData)
+}
 
 
 
