@@ -25,11 +25,12 @@ const wordsCounterGoal = 10
 let wordsCounter = 0
 let gameMode = ''
 
-let INITIAL_TIME = 5
+let TIMER_INITIAL_TIME = 5
+let INITIAL_TIME
 let TEXT = getText(englishLetters)
 
 let words = []
-let currentTime = INITIAL_TIME
+let currentTime = TIMER_INITIAL_TIME
 let playing = false
 
 
@@ -61,7 +62,8 @@ function getText(wordsArray) {
 function initGame() {
 
     words = TEXT
-    currentTime = INITIAL_TIME  
+    currentTime = TIMER_INITIAL_TIME
+    INITIAL_TIME = Date.now()  
     $wordsCounter.textContent = `${wordsCounter}/${wordsCounterGoal}`
     
     if (gameMode === 'timer') {
@@ -137,7 +139,7 @@ function focusInput() {
 }
 
 function setTimer(time) {
-    INITIAL_TIME = time
+    TIMER_INITIAL_TIME = time
     setGameMode('timer')
 }
 
@@ -169,6 +171,7 @@ function closeInfo() {
     reset()
     initGame()
     initEvents()
+    STATE.currentGameData = []
     $info.style.display = 'none'
     $accuracy.textContent = ''
     $wpm.textContent = ''
@@ -339,12 +342,21 @@ function onKeyUp(event) {
 
 function getGameData($currentWord, key) {
     if ( key === ' ' || key === 'Backspace') return
+
     const isCorrect = key === $currentWord.querySelectorAll('tg-letter')[$input.value.length - 1].textContent
+    const time = Date.now()
+    
+    const currentTotalLetters = $text.querySelectorAll('tg-letter.correct', 'tg-letter.incorrect').length
+    const wpm = Math.floor( currentTotalLetters / 5 / ((time - INITIAL_TIME) / 1000) * 60)
+    console.log('currentTotalLetters => ', currentTotalLetters)
+    console.log('wpm => ', wpm)
+
     // Set gameData to info graphics
     const newGameData = {
-        time: Date.now(),
+        time,
         isCorrect,
-        key
+        key,
+        wpm,
     }
     STATE.currentGameData.push(newGameData)
 }
@@ -357,7 +369,11 @@ function gameOver() {
     $input.removeEventListener('keydown', onKeyDown)
     $input.removeEventListener('keyup', onKeyUp)
     document.removeEventListener('keydown', focusInput)
-    const wpm = Math.floor( wordsCounter / (INITIAL_TIME - currentTime) * 60)
+    // const wpm = Math.floor( wordsCounter / (TIMER_INITIAL_TIME - currentTime) * 60)
+    const currentTotalLetters = $text.querySelectorAll('tg-letter.correct', 'tg-letter.incorrect').length
+
+    const lastType = [...STATE.currentGameData].reverse()[0].time
+    const wpm = Math.floor( currentTotalLetters / 5 / ((lastType - INITIAL_TIME) / 1000) * 60)
 
     const errors = document.querySelectorAll('tg-letter.incorrect').length
     const totalLetters = document.querySelectorAll('.correct, .incorrect').length
@@ -371,16 +387,21 @@ function gameOver() {
     $accuracy.classList.add('correct')
     $wpm.classList.add('correct')
 
-    console.log(STATE.currentGameData)
-    let finalData = []
-    STATE.currentGameData.forEach((data) => {
-        const isNew = finalData.some((val) => {
-            return val.time === data.time
-        })
-        if (!isNew) finalData.push(data)
-    })
+    renderStats(STATE.currentGameData)
+}
 
-    console.log('finalData: ', STATE.currentGameData)
+function renderStats(data) {
+    console.log('renderStats: ', data)
+    // get total time
+    // get errors
+    // graph SVG
+    // render border
+    // render numbers, range
+    // render errors
+    // get average of wpm/time
+    // render average/time
+
+
 }
 
 
