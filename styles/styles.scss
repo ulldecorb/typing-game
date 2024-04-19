@@ -131,13 +131,19 @@ main {
     .game {
         display: flex;
         flex-direction: column;
+        
+        &__stats {
+            height: 100px;
+            display: flex;
+            align-items: center;
 
-        &__timer {
-            color: var(--gray);
-        }
-
-        &__word-counter {
-            color: var(--gray)
+            .timer {
+                color: var(--gray);
+            }
+    
+            .word-counter {
+                color: var(--gray)
+            }
         }
 
         &__text {
