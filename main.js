@@ -370,8 +370,8 @@ function gameOver() {
     $input.removeEventListener('keyup', onKeyUp)
     document.removeEventListener('keydown', focusInput)
     // const wpm = Math.floor( wordsCounter / (TIMER_INITIAL_TIME - currentTime) * 60)
-    const currentTotalLetters = $text.querySelectorAll('tg-letter.correct', 'tg-letter.incorrect').length
 
+    const currentTotalLetters = $text.querySelectorAll('tg-letter.correct', 'tg-letter.incorrect').length
     const lastType = [...STATE.currentGameData].reverse()[0].time
     const wpm = Math.floor( currentTotalLetters / 5 / ((lastType - INITIAL_TIME) / 1000) * 60)
 
@@ -380,8 +380,8 @@ function gameOver() {
     let accuracy = (100 - (errors * 100 / totalLetters)) 
     if (isNaN(accuracy)) {accuracy = 0} 
 
-    $game.style.display = 'none';
-    $info.style.display = 'grid'
+    $game.style.display = 'none'
+    $info.style.display = 'flex'
     $accuracy.textContent = `${accuracy.toFixed(1)}%`
     $wpm.textContent = wpm
     $accuracy.classList.add('correct')
@@ -393,7 +393,12 @@ function gameOver() {
 function renderStats(data) {
     console.log('renderStats: ', data)
     // get total time
+    const totalSeconds = ([...data].reverse()[0].time - INITIAL_TIME) / 1000
     // get errors
+    const errorsList = data.filter(action => action.isCorrect === false)
+    // get corrects
+    const correctList = data.filter(action => action.isCorrect === true)
+    console.log({totalSeconds, errorsList, correctList})
     // graph SVG
     // render border
     // render numbers, range

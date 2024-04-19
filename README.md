@@ -65,6 +65,7 @@ There are 3 stages on this project:
 🟩 UI > SVG icons for bar
 ⬛ UI > Custom SVG icons
 ⬛ :after render .incorrectLetters
+⬛ Responsive => Style Refactor
 
 ### 3. Set e2e and unit tests to refactor javascript
 ⬛ Unit tests
@@ -74,7 +75,7 @@ There are 3 stages on this project:
 ## Sources
 This project is based on [this video of Midudev](https://www.youtube.com/watch?v=157qVlTelOg&t=118s), a fast clone of [Monkeytype](https://monkeytype.com/). 
 Improving the UX and UI with custom sets of colors, svg generator to render the game info stats when game is over and render the wrong type letter. I also get some functionalities from [Agile Fingers](https://agilefingers.com/es) another type web.
-The objectives of develop this web are fun and the opportunity to aply tools and functionalities that I was deserve to touch:
+The objectives to develop this web are fun and the opportunity to aply tools and functionalities that I was deserve to touch:
 SVG stats graphic generator
 
 <!-- .
@@ -84,6 +85,8 @@ topics:
 custom svg as code crafter
 gamification
 test for refactor
+sass for babel compiler
+innerHTML controversial don't care about security on recreation web with no registration neither sensible data to be safe.
 . -->
 
 ## Jest
