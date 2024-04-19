@@ -16,6 +16,7 @@ const $wordsCounter = document.getElementById('word-counter')
 const $info = document.querySelector('.info')
 const $accuracy = document.getElementById('accuracy')
 const $wpm = document.getElementById('wpm')
+const $svg = document.querySelector('.graph__svg')
 const $reset = document.getElementById('reset')
 const $closeInfo = document.getElementById('closeInfoHandler')
 
@@ -27,6 +28,7 @@ let gameMode = ''
 
 let TIMER_INITIAL_TIME = 5
 let INITIAL_TIME
+let FINAL_TIME
 let TEXT = getText(englishLetters)
 
 let words = []
@@ -63,7 +65,6 @@ function initGame() {
 
     words = TEXT
     currentTime = TIMER_INITIAL_TIME
-    INITIAL_TIME = Date.now()  
     $wordsCounter.textContent = `${wordsCounter}/${wordsCounterGoal}`
     
     if (gameMode === 'timer') {
@@ -120,6 +121,7 @@ function focusInput() {
 
     if(!playing) {
         playing = true
+        INITIAL_TIME = Date.now()  
         
         if(gameMode === 'timer') {
             const intervalId =
@@ -150,6 +152,9 @@ function reset() {
     $game.style.display = 'flex'
     $input.value = ''
     $text.innerHTML = ''
+    $svg.innerHTML = ''
+    INITIAL_TIME = 0
+    FINAL_TIME = 0
 }
 
 function handlerReset() {
@@ -359,8 +364,8 @@ function getGameData($currentWord, key) {
 }
 
 function gameOver() {
-    // TODO => UI Render stats of game: Accuracy, wpm, svg graphics {wpm, errors, time/wpm}
     playing = false
+    FINAL_TIME = Date.now()
     
     $input.removeEventListener('keydown', onKeyDown)
     $input.removeEventListener('keyup', onKeyUp)
@@ -378,26 +383,51 @@ function gameOver() {
 
     $game.style.display = 'none';
     $info.style.display = 'grid'
-    $accuracy.textContent = `${accuracy.toFixed(1)}%`
+    $accuracy.textContent = `${accuracy.toFixed()}%`
     $wpm.textContent = wpm
     $accuracy.classList.add('correct')
     $wpm.classList.add('correct')
 
+    // TODO => UI Render stats of game: Accuracy, wpm, svg graphics {wpm, errors, time/wpm}
     renderStats(STATE.currentGameData)
 }
 
 function renderStats(data) {
     // get total time
     const totalSeconds = ([...data].reverse()[0].time - INITIAL_TIME) / 1000
+    const totalMiliSeconds = FINAL_TIME - INITIAL_TIME
     // get errors
     const errorsList = data.filter(action => action.isCorrect === false)
     // get corrects
     const correctList = data.filter(action => action.isCorrect === true)
-    console.log({totalSeconds, errorsList, correctList})
+    
+    const maxWpm = [...data].sort((a, b) => b.wpm - a.wpm)[0].wpm
+    console.log({INITIAL_TIME, FINAL_TIME, totalSeconds, totalMiliSeconds, maxWpm})
+
     // graph SVG
+    const $svg = document.querySelector('.graph__svg')
+    $svg.innerHTML = '<rect x="0" y="0" width="50" height="50" fill="indigo" />'
+/*
+    convertor x width => min/max total game time
+
+    ?               200
+    current-time    total-time 
+
+
+    convertor y height => min/max wpm data
+
+    ?               100
+    current-wpm     max-wpm
+*/
     // render border
     // render numbers, range
     // render errors
+    errorsList.forEach(data => {
+        const x = ((INITIAL_TIME - data.time) * 200 / totalMiliSeconds * -1).toFixed(2)
+        const y = (data.wpm * 100 / maxWpm).toFixed(2)
+        $svg.innerHTML = $svg.innerHTML + `
+        <circle class="svg-error" cx="${x}" cy="${y}" r="1.5" stroke="black" fill="gold" />`
+    })
     // get average of wpm/time
     // render average/time
 
