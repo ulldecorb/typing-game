@@ -122,10 +122,15 @@ main .game {
   display: flex;
   flex-direction: column;
 }
-main .game__timer {
+main .game__stats {
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+main .game__stats .timer {
   color: var(--gray);
 }
-main .game__word-counter {
+main .game__stats .word-counter {
   color: var(--gray);
 }
 main .game__text {

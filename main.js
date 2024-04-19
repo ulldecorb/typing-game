@@ -348,9 +348,6 @@ function getGameData($currentWord, key) {
     
     const currentTotalLetters = $text.querySelectorAll('tg-letter.correct', 'tg-letter.incorrect').length
     const wpm = Math.floor( currentTotalLetters / 5 / ((time - INITIAL_TIME) / 1000) * 60)
-    console.log('currentTotalLetters => ', currentTotalLetters)
-    console.log('wpm => ', wpm)
-
     // Set gameData to info graphics
     const newGameData = {
         time,
@@ -363,15 +360,14 @@ function getGameData($currentWord, key) {
 
 function gameOver() {
     // TODO => UI Render stats of game: Accuracy, wpm, svg graphics {wpm, errors, time/wpm}
-    console.log('game over')
     playing = false
     
     $input.removeEventListener('keydown', onKeyDown)
     $input.removeEventListener('keyup', onKeyUp)
     document.removeEventListener('keydown', focusInput)
     // const wpm = Math.floor( wordsCounter / (TIMER_INITIAL_TIME - currentTime) * 60)
-
     const currentTotalLetters = $text.querySelectorAll('tg-letter.correct', 'tg-letter.incorrect').length
+
     const lastType = [...STATE.currentGameData].reverse()[0].time
     const wpm = Math.floor( currentTotalLetters / 5 / ((lastType - INITIAL_TIME) / 1000) * 60)
 
@@ -380,8 +376,8 @@ function gameOver() {
     let accuracy = (100 - (errors * 100 / totalLetters)) 
     if (isNaN(accuracy)) {accuracy = 0} 
 
-    $game.style.display = 'none'
-    $info.style.display = 'flex'
+    $game.style.display = 'none';
+    $info.style.display = 'grid'
     $accuracy.textContent = `${accuracy.toFixed(1)}%`
     $wpm.textContent = wpm
     $accuracy.classList.add('correct')
@@ -391,7 +387,6 @@ function gameOver() {
 }
 
 function renderStats(data) {
-    console.log('renderStats: ', data)
     // get total time
     const totalSeconds = ([...data].reverse()[0].time - INITIAL_TIME) / 1000
     // get errors
