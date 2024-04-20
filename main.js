@@ -374,7 +374,7 @@ function gameOver() {
     const currentTotalLetters = $text.querySelectorAll('tg-letter.correct', 'tg-letter.incorrect').length
 
     const lastType = [...STATE.currentGameData].reverse()[0].time
-    const wpm = Math.floor( currentTotalLetters / 5 / ((lastType - INITIAL_TIME) / 1000) * 60)
+    const wpm = Math.floor( currentTotalLetters / 5 / ((FINAL_TIME - INITIAL_TIME) / 1000) * 60)
 
     const errors = document.querySelectorAll('tg-letter.incorrect').length
     const totalLetters = document.querySelectorAll('.correct, .incorrect').length
@@ -394,7 +394,6 @@ function gameOver() {
 
 function renderStats(data) {
     // get total time
-    const totalSeconds = ([...data].reverse()[0].time - INITIAL_TIME) / 1000
     const totalMiliSeconds = FINAL_TIME - INITIAL_TIME
     // get errors
     const errorsList = data.filter(action => action.isCorrect === false)
@@ -402,36 +401,44 @@ function renderStats(data) {
     const correctList = data.filter(action => action.isCorrect === true)
     
     const maxWpm = [...data].sort((a, b) => b.wpm - a.wpm)[0].wpm
-    console.log({INITIAL_TIME, FINAL_TIME, totalSeconds, totalMiliSeconds, maxWpm})
 
     // graph SVG
     const $svg = document.querySelector('.graph__svg')
-    $svg.innerHTML = '<rect x="0" y="0" width="50" height="50" fill="indigo" />'
-/*
-    convertor x width => min/max total game time
+    // render wpm/time
+    let path = ''
+    const finalPath = `200, ${Math.floor($wpm.innerText)}`
+    data.forEach(data => {
+        const x = Math.floor((INITIAL_TIME - data.time) * 200 / totalMiliSeconds * -1)
+        const y = Math.floor(data.wpm * 100 / (maxWpm + 10))
+        if (y === 0) return
+        path = path + `${x},${y} `
+        $svg.innerHTML = $svg.innerHTML + `<circle class="svg__error" cx="${x}" cy="${y}" r="2" stroke="blue" fill="teal" />`
+        console.table('path ', data.wpm, y, x)
+    })
+    $svg.innerHTML = $svg.innerHTML + `<path class="svg__path" d="M 200,100 L0,100 ${path} ${finalPath}" fill="#646669" stroke-linecap="round" stroke-linejoin="round" stroke="#e2b714" fill="#646669" />`
 
-    ?               200
-    current-time    total-time 
-
-
-    convertor y height => min/max wpm data
-
-    ?               100
-    current-wpm     max-wpm
-*/
-    // render border
-    // render numbers, range
+    console.table({INITIAL_TIME, FINAL_TIME, totalMiliSeconds, maxWpm, path,})
+    // stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd"
+    
     // render errors
     errorsList.forEach(data => {
-        const x = ((INITIAL_TIME - data.time) * 200 / totalMiliSeconds * -1).toFixed(2)
-        const y = (data.wpm * 100 / maxWpm).toFixed(2)
-        $svg.innerHTML = $svg.innerHTML + `
-        <circle class="svg-error" cx="${x}" cy="${y}" r="1.5" stroke="black" fill="gold" />`
+        const x = Math.floor((INITIAL_TIME - data.time) * 200 / totalMiliSeconds * -1)
+        const y = Math.floor(data.wpm * 100 / maxWpm)
+        $svg.innerHTML = $svg.innerHTML + `<circle class="svg__error" cx="${x}" cy="95" r="1.5" stroke="gold" fill="red" />`
     })
+    // render border
+    // const $border = document.createElement('svg')
+    // $border.classList.add('graph__wpm-text')
+    // $border.createAttribute('viewBox="0 0 50 100"')
+    // $border.innerHTML(`<rect class="wmp-text" d="M 0,0 " fill=""/>`)
+    // render numbers, range
+
     // get average of wpm/time
     // render average/time
 
-
+    
+    // render border
+    $svg.innerHTML = $svg.innerHTML + `<path class="svg__path" d="M 0,0 L0,100 200,100 200,0" fill="transparent" stroke-linecap="round" stroke-linejoin="round" stroke="orange" stroke-width="4"/>`
 }
 
 
